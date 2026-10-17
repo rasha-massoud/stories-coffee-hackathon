@@ -1,0 +1,64 @@
+# 1. Discount weeks
+Days where >12% of lines are discounted (normal ~6%): 16 -> 2026-03-12..2026-03-19 and 2026-05-12..2026-05-19
+Defined promo windows: 2026-03-12..19 and 2026-05-12..19 (16 days)
+
+## Within-month traffic cycle on non-promo days (controls: weekday, branch, trend)
+                    effect vs days 1-7  p-value
+C(phase)[T.d08-14]              -0.047    0.012
+C(phase)[T.d15-21]              -0.083    0.000
+C(phase)[T.d22-31]              -0.062    0.000
+Traffic peaks in the first week of each month and dips mid-month (consistent with a payday cycle - an assumption, the data has no income information). Both promo weeks (12th-19th) sit in the dip.
+
+## Promo-week effect (OLS on log daily values, 3 branches x 181 days, robust SEs)
+                                          promo effect  95% CI low  95% CI high  p-value
+model                            outcome                                                
+naive: weekday+branch+trend      txns           -0.024      -0.053        0.007    0.129
+                                 revenue        -0.038      -0.075       -0.000    0.048
+                                 gp             -0.042      -0.077       -0.005    0.025
++ within-month cycle (preferred) txns           -0.002      -0.036        0.034    0.909
+                                 revenue        -0.021      -0.063        0.023    0.336
+                                 gp             -0.024      -0.065        0.018    0.260
+Discount given in promo windows: $620; all year-to-date discounts: $2,178
+First explanation (naive model): promos cut gross profit by ~4% (p=0.03). Challenged: once the mid-month dip is controlled, the traffic effect is -0.2% (95% CI -3.6% to +3.4%) and the profit effect is no longer significant. Conclusion: no evidence the discounts brought extra customers; most of the apparent loss was the normal mid-month dip.
+Remaining caveat: events (exams, holidays) in those weeks could still hide a positive effect. Stories should check its own calendar for these dates.
+
+# 2. 'New customers are collapsing' is an artifact
+
+## Monthly customer metrics (observed)
+       first-seen customers  active identified customers  identified txns  anonymous txns  visits per active customer
+month                                                                                                                
+1                      1979                         1979             2871            1674                        1.45
+2                       843                         1965             2962            1657                        1.51
+3                       433                         2233             3584            2044                        1.61
+4                       159                         2283             3642            2108                        1.60
+5                        60                         2435             4063            2376                        1.67
+6                        20                         2525             4412            2494                        1.75
+Total identified customers: 3,494. The ID pool is closed (no ID beyond C03500), and 57% of all IDs appear already in January.
+A naive reading says acquisition fell 99% (1,979 -> 20). But a customer can only be 'new' once; with a fixed pool of frequent visitors (avg gap between visits ~24 days), first sightings must front-load. Active customers actually GREW 28% and visits per customer grew 21%; anonymous traffic grew 49%. Using 'first-seen' as an acquisition KPI on this data would trigger a wrong decision.
+
+# 3. Tuesday effect
+
+## Average transactions per day by weekday (all branches)
+           txns/day
+dt                 
+Monday        178.0
+Tuesday       285.0
+Wednesday     186.0
+Thursday      180.0
+Friday        197.0
+Saturday      129.0
+Sunday        156.0
+
+## Basket and customer mix: Tuesday vs other days
+         revenue  items   disc  known
+tuesday                              
+False      9.028  1.597  0.094  0.634
+True       9.028  1.592  0.101  0.642
+
+## Tuesday multiplier by branch
+            x
+Branch       
+Garden   1.69
+Harbour  1.66
+Uptown   1.65
+Tuesday's extra revenue comes entirely from more visits, not bigger baskets or discounts, at every branch. The multipliers above compare Tuesday with ALL other days incl. the weekend (~1.65x); against Mon/Wed/Thu/Fri only it is ~1.5x (+53%, script 06). Staff and stock to ~1.5x vs a normal weekday; Stories should identify the driver before trying to copy it.

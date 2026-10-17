@@ -1,0 +1,21 @@
+# Do Customer IDs behave like real, consistent customers?
+
+## Visit-to-visit consistency: real IDs vs IDs shuffled at random (100 shuffles)
+                                                    observed (real IDs)  shuffled IDs (chance), mean  shuffled, 95% range low  shuffled, 95% range high
+consecutive visits at the same branch                             0.376                        0.376                    0.369                     0.383
+consecutive visits with the same order type                       0.521                        0.519                    0.512                     0.526
+consecutive visits with the same main category                    0.173                        0.170                    0.165                     0.175
+hour correlation between consecutive visits                      -0.009                        0.000                   -0.015                     0.013
+avg share of visits at the customer's top branch                  0.595                        0.593                    0.589                     0.596
+avg share of visits in the customer's top category                0.429                        0.428                    0.424                     0.431
+
+Statistics inside the shuffled 95% range (no tolerance added): 6 of 6. The six statistics are related, so this is one consistent pattern, not six independent confirmations.
+Power check: if just 10% of visits repeated the previous branch (a weak habit), 'same branch' would be 0.433 vs the shuffled range 0.369-0.383. Illustrative sensitivity check only (one injected pattern, one feature) - not a power estimate.
+
+## Identified vs anonymous visits (observed)
+       revenue    gp  items
+known                      
+False     9.04  5.30   1.60
+True      9.02  5.29   1.59
+
+Conclusion: real customers usually have habits - a usual branch, order type, time and products. Visits sharing a Customer ID show no detectable persistence beyond randomly shuffled labels on any tested feature (an illustrative check suggests a modest branch habit would have shown). That does not prove the IDs are meaningless (prepared or anonymised data can behave like this), but it means they cannot be trusted for longitudinal analysis until ID assignment is validated. Consequences: (1) anything built on following an ID over time - branch switching, return visits, 'the same regulars', customer concentration - describes the labels, not behaviour, and is withdrawn or downgraded in the README; (2) aggregate findings (traffic, margins, costs, prices, timing) do not use IDs and are unaffected; (3) business value: Stories should NOT invest in CRM/loyalty analytics or ID-based targeting on this data until ID capture is fixed - test: check how IDs are assigned at the till for one week at one branch.

@@ -1,0 +1,91 @@
+# Garden price pilot: reliability of the keep/stop decision
+
+## Fixed-origin backtest: aggregate Garden transactions vs a forecast frozen at the window start (observed)
+                         train months  aggregate error (actual/forecast - 1)
+horizon (months) window                                                     
+1                3-3                2                                -0.0142
+                 4-4                3                                -0.0149
+                 5-5                4                                 0.0193
+                 6-6                5                                -0.0171
+2                3-4                2                                -0.0325
+                 4-5                3                                -0.0069
+                 5-6                4                                 0.0074
+Root-mean-square aggregate error: 1 month 1.6% (4 windows), 2 months 2.0% (3 overlapping windows). The 2-month error is NOT smaller than the 1-month error: a frozen trend drifts, so a longer pilot does not automatically measure more precisely.
+Pure daily-noise floor: 2.1% (1 month), 1.5% (2 months), from a daily sd of 0.116.
+Measurement error used below = max(empirical RMS, noise floor): 2.1% (1 month), 2.0% (2 months). Few windows -> treat as approximate.
+Smallest drop detectable with 80% power (5% test): ~5.9% in 1 month, ~5.5% in 2 months. This supersedes script 14's ~8% figure, which added daily noise on top of monthly errors that already contain it.
+Cross-check metric, same method: monthly errors -5.7%, -0.7%, +1.1%, -2.2%; RMS 3.1%; noise floor 2.7%; measurement error 3.1% vs 2.1% for the primary (1.5x).
+
+## P(keep), 1-month fixed-horizon pilot, cost fixed, OR 1.43 is an allocation (avoidable cost = Harbour's), zero bias (normal approximation)
+           naive: keep if measured loss < break-even  one-sided: keep if measured loss < break-even - 1.645 x error   profit if kept
+true loss                                                                                                                           
+0.000                                          1.000                                                          0.968             gain
+0.020                                          0.995                                                          0.817             gain
+0.050                                          0.871                                                          0.304             gain
+0.074                                          0.500                                                          0.050  zero (boundary)
+0.096                                          0.150                                                          0.004             LOSS
+0.120                                          0.015                                                          0.000             LOSS
+0.150                                          0.000                                                          0.000             LOSS
+
+## P(keep), 1-month fixed-horizon pilot, real premium NOT yet recovered (avoidable cost = Garden's), zero bias (normal approximation)
+           naive: keep if measured loss < break-even  one-sided: keep if measured loss < break-even - 1.645 x error   profit if kept
+true loss                                                                                                                           
+0.000                                          1.000                                                          0.998             gain
+0.020                                          1.000                                                          0.974             gain
+0.050                                          0.985                                                          0.700             gain
+0.074                                          0.850                                                          0.272             gain
+0.096                                          0.500                                                          0.050  zero (boundary)
+0.120                                          0.129                                                          0.003             LOSS
+0.150                                          0.005                                                          0.000             LOSS
+
+## P(keep), 2-month fixed-horizon pilot, cost fixed, OR 1.43 is an allocation (avoidable cost = Harbour's), zero bias (normal approximation)
+           naive: keep if measured loss < break-even  one-sided: keep if measured loss < break-even - 1.645 x error   profit if kept
+true loss                                                                                                                           
+0.000                                          1.000                                                          0.983             gain
+0.020                                          0.997                                                          0.866             gain
+0.050                                          0.889                                                          0.336             gain
+0.074                                          0.500                                                          0.050  zero (boundary)
+0.096                                          0.131                                                          0.003             LOSS
+0.120                                          0.010                                                          0.000             LOSS
+0.150                                          0.000                                                          0.000             LOSS
+
+## P(keep), 2-month fixed-horizon pilot, real premium NOT yet recovered (avoidable cost = Garden's), zero bias (normal approximation)
+           naive: keep if measured loss < break-even  one-sided: keep if measured loss < break-even - 1.645 x error   profit if kept
+true loss                                                                                                                           
+0.000                                          1.000                                                          0.999             gain
+0.020                                          1.000                                                          0.987             gain
+0.050                                          0.990                                                          0.757             gain
+0.074                                          0.869                                                          0.300             gain
+0.096                                          0.500                                                          0.050  zero (boundary)
+0.120                                          0.111                                                          0.002             LOSS
+0.150                                          0.003                                                          0.000             LOSS
+
+## Bias sensitivity of the one-sided rule: P(keep) for a harmless (0%) and a harmful (12%) loss
+forecast bias                                                                       -0.02   0.00   0.02
+months case                                                              true loss                     
+1      cost fixed, OR 1.43 is an allocation (avoidable cost = Harbour's) 0.00       0.817  0.968  0.997
+                                                                         0.12       0.000  0.000  0.002
+       real premium NOT yet recovered (avoidable cost = Garden's)        0.00       0.974  0.998  1.000
+                                                                         0.12       0.000  0.003  0.033
+2      cost fixed, OR 1.43 is an allocation (avoidable cost = Harbour's) 0.00       0.866  0.983  0.999
+                                                                         0.12       0.000  0.000  0.001
+       real premium NOT yet recovered (avoidable cost = Garden's)        0.00       0.987  0.999  1.000
+                                                                         0.12       0.000  0.002  0.032
+1-month pilot, real premium NOT yet recovered (avoidable cost = Garden's): keep only if measured loss < 6.1%
+1-month pilot, cost fixed, OR 1.43 is an allocation (avoidable cost = Harbour's): keep only if measured loss < 3.9%
+2-month pilot, real premium NOT yet recovered (avoidable cost = Garden's): keep only if measured loss < 6.4%
+2-month pilot, cost fixed, OR 1.43 is an allocation (avoidable cost = Harbour's): keep only if measured loss < 4.2%
+
+## Garden basket by month (observed): units and GP per transaction
+   units     gp
+m              
+1  1.613  4.227
+2  1.598  4.137
+3  1.623  4.273
+4  1.597  4.193
+5  1.580  4.146
+6  1.583  4.182
+Normal month-to-month range: units/txn 2.7%, GP/txn 3.3%. Guardrail: if pilot-month units/txn falls more than 3% below the pre-pilot average, the transaction metric no longer reflects profit, so the result is classed inconclusive (revert).
+
+Reading (zero bias, normal approximation): at the zero-profit boundary the naive rule keeps the rise ~50% of the time and the one-sided rule ~5% - by construction, not a validated error rate. What matters commercially: the one-sided rule rarely keeps a clearly harmful rise (12% loss), but it also often rejects profitable ones, especially when the break-even is 7.4% (after a cost fix, or if the 1.43 is an allocation). A 2-month pilot is not more precise than a 1-month pilot here, because the frozen trend drifts; it mainly averages the turn-of-month cycle.
+Protocol this supports: ONE calendar month, fixed horizon, one-sided rule with the threshold for the applicable cost case. Anything else - inconclusive range, failed basket guardrail, or cross-check disagreeing - means revert prices. A day-14 safety stop (traffic down > 15%) is an override whose effect on these probabilities is not estimated. The probabilities above describe ONLY the simplified one-month traffic rule. Limits: 4 one-month and 3 overlapping two-month windows; tail risks cannot be validated.

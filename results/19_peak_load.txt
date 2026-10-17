@@ -1,0 +1,16 @@
+# Peak load in 15-minute slots
+
+## June peak loads by branch (observed)
+         busiest 15 min in June (orders)  95th pct 15-min slot (orders)  busiest hour in June / 4 (orders per 15 min, if spread evenly)  June Tuesdays: avg of each day's busiest 15 min  peak 15 min vs even spread
+branch                                                                                                                                                                                                              
+Harbour                               12                            5.0                                                            6.50                                              8.2                        1.85
+Garden                                 8                            4.0                                                            4.00                                              6.6                        2.00
+Uptown                                 7                            3.0                                                            3.25                                              4.6                        2.15
+
+## Typical Tuesday peak 15 min: June (observed) and December if +8.5%/month continues (ESTIMATE)
+         June  December (projection)
+branch                              
+Harbour   8.2                   13.4
+Garden    6.6                   10.8
+Uptown    4.6                    7.5
+Reading: the busiest 15 minutes carry noticeably more than a quarter of the busiest hour, so staffing to hourly averages understates peak load. Stories should compare these peak-15-minute counts with how many orders one barista and one till can actually serve in 15 minutes (not in this data) - that comparison, not the hourly average, says when queues start. The December figures assume growth continues, which is not established.

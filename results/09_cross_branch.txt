@@ -1,0 +1,49 @@
+# Cross-branch customers and the company-level value of a Garden price rise
+
+## Revenue and gross profit per visit by branch (observed)
+         revenue    gp
+Branch                
+Garden      8.94  4.19
+Harbour     9.21  5.98
+Uptown      8.72  5.46
+Each visit made at Harbour instead of Garden earns $1.79 more gross profit (+43%), at a similar basket ($9.21 vs $8.94).
+Garden GP per visit if its costs were at Harbour level (ESTIMATE): $5.62 vs Harbour $5.98 -> most of the per-visit gap is the cost uplift, not anything about Garden's customers.
+
+Identified customers: 3,494; using 2+ branches: 93.8%; all 3: 55.9%
+
+## Where customers make their visits, by home branch (observed; rows = home branch)
+Branch   Garden  Harbour  Uptown  customers
+home                                       
+Garden    0.534    0.306   0.160       1312
+Harbour   0.203    0.635   0.163       1953
+Uptown    0.183    0.213   0.604        229
+Branch shares of all identified visits: {'Harbour': 0.483, 'Garden': 0.328, 'Uptown': 0.189}
+If each visit picked a branch at random by overall share: 94.1% would use 2+ branches vs 93.8% observed -> customers are about as mixed as pure chance: branch loyalty is weak.
+
+Garden GP/visit now $4.19; after +5% $4.64. A switched visit earns $5.80 at the Harbour/Uptown mix Garden customers already use ({'Harbour': 0.66, 'Uptown': 0.34}).
+
+## Company-level break-even for +5% at Garden (ESTIMATE)
+                                                   company break-even Garden volume loss
+share of lost Garden visits that switch branch (s)                                      
+0.00                                                                                9.6%
+0.25                                                                               14.0%
+0.50                                                                               25.7%
+0.75                                                  none: stays profitable at any loss
+1.00                                                  none: stays profitable at any loss
+If at least 80% of lost Garden visits move to another Stories branch, the company gains GP whatever Garden's volume loss - because a visit at Harbour earns more than a visit at Garden even after the price rise.
+
+## Company GP change from +5% at Garden, $/yr (ESTIMATE; H1 x 2 Garden visits)
+                    s = 0% switch  s = 50% switch  s = 75% switch
+Garden volume loss                                               
+0.00                       9975.0          9975.0          9975.0
+0.05                       4797.0          8036.0          9656.0
+0.10                       -382.0          6098.0          9337.0
+0.15                      -5560.0          4159.0          9019.0
+0.20                     -10738.0          2221.0          8700.0
+Implication for the pilot: measure Garden's loss AND where lost identified customers go (Customer IDs). The decision rule should be company-level gross profit, not Garden's alone. A Garden-only rule would reject a price rise that makes Stories more money.
+Caveat: switching behaviour under a price change is not observed in this data (prices never change). The fact that customers already spread their visits across branches about as much as chance suggests switching is easy, but s must be measured in the pilot.
+
+Top 20% of identified customers (698) bring 33.4% of identified gross profit and 30.1% of identified visits (observed). A strict 80/20 rule would be 80%.
+Identified customers bring 63.5% of all gross profit; anonymous visits the rest.
+Visits per identified customer in 6 months: median 6, 90th percentile 9, max 18. GP per visit, top 20% vs rest: $5.87 vs $5.04
+Reading: value is spread fairly evenly (no 80/20). Top customers are worth more mostly because they come more often (30% of visits) and partly because each visit earns more (ranking by GP also selects higher-GP visits). There is no small VIP group to target; a loyalty scheme should reward frequency.

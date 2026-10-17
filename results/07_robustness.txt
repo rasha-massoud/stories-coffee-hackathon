@@ -1,0 +1,40 @@
+# 1. Rolling-origin backtest: M1 (weekday + trend) vs naive baseline, Garden daily transactions
+
+## Backtest by month (each month predicted only from earlier months)
+            train days  MAE naive  MAE M1  MAPE naive  MAPE M1  M1 better by
+test month                                                                  
+3                   59      8.677   5.861       0.151    0.103         0.325
+4                   90      6.167   5.388       0.095    0.087         0.126
+5                  120      7.290   5.555       0.110    0.085         0.238
+6                  151     10.233   6.956       0.136    0.096         0.320
+M1 beats the naive baseline in 4 of 4 months; average MAE improvement 25%.
+
+# 2. Bootstrap: how uncertain are the main $ values? (resample days, 1,000 times)
+
+## Annualised $ values with bootstrap 95% intervals (ESTIMATE; day-level resampling of H1, x365/181)
+                                 point (per yr)  95% low  95% high
+Garden cost gap                         32111.0  30753.0   33620.0
+Garden +5% price, elasticity 0          10110.0   9691.0   10582.0
+Garden +5% price, elasticity -1          4834.0   4629.0    5061.0
+These intervals capture sampling noise in volume only. The bigger uncertainties are the assumptions (is the cost gap real cash? what is elasticity?), handled by scenario tables in scripts 02 and 05.
+
+# 3. Does the Garden cost gap survive different data choices? ($/yr, per-day x 365)
+
+## Garden cost gap under different data choices
+                           cost gap $/yr  vs all data
+all data                       32110.865        0.000
+drop exact duplicate rows      32038.329       -0.002
+drop promo weeks               31926.683       -0.006
+Jan-Mar only                   28476.651       -0.113
+Apr-Jun only                   35705.142        0.112
+June only (run-rate)           39223.752        0.222
+The gap moves only with volume (later months are bigger because of growth); the cost ratio itself never changes. Data-cleaning choices move it by about 1% or less.
+
+# 4. Deeper data audit
+Same customer, 2 transactions at the same branch within 5 minutes (possible split orders): 3
+Same customer at two DIFFERENT branches within 30 minutes (possible shared IDs): 23
+Customer-days with visits to 2+ branches: 267 of 21,112
+Products sold at all 3 branches: 45 of 45
+Busiest single hour in the data: 51 transactions (2026-06-23 21:00); 99th percentile hour: 32 -> no extreme spikes
+Customer IDs: 3,494 used out of the range C00001-C03500
+Conclusion: no structural problems in the transaction records themselves. Split orders (3) are negligible; 23 cases of one ID at two branches within 30 minutes (0.1% of identified visits) suggest occasional shared IDs. NOTE: the broader validity of Customer IDs is tested separately in script 13, which finds no detectable persistence; ID-based conclusions are withdrawn there.

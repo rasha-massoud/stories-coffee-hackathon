@@ -1,0 +1,72 @@
+# Garden product-level analysis
+Total Garden excess cost vs Harbour cost levels: $15,923 in 6 months ($31,847/yr, H1 x 2; observed costs, counterfactual estimate)
+The top 14 of 45 products hold 50% of the excess cost; the top 27 hold 80%.
+
+## Top 15 products by excess cost (procurement priority list)
+                              category  units  cost  harbour_cost  excess_cost_6m  excess_cost_yr  cum_share
+Product                                                                                                     
+Iced Matcha               Matcha & Tea    766  3.59          2.51          827.28         1654.56       0.05
+Chicken Pesto Sandwich      Sandwiches    354  7.39          5.17          785.88         1571.76       0.10
+Strawberry Matcha         Matcha & Tea    480  4.55          3.18          657.60         1315.20       0.14
+Turkey & Cheese Sandwich    Sandwiches    317  6.75          4.72          643.51         1287.02       0.18
+Classic Matcha            Matcha & Tea    650  3.25          2.27          637.00         1274.00       0.22
+Cheesecake Slice              Desserts    465  4.40          3.08          613.80         1227.60       0.26
+Iced Latte                 Cold Coffee    814  2.37          1.66          577.94         1155.88       0.30
+Brownie                       Desserts    554  3.39          2.37          565.08         1130.16       0.33
+Frozen Yoghurt Cup            Desserts    485  3.85          2.69          562.60         1125.20       0.37
+Tiramisu Cup                  Desserts    452  4.08          2.85          555.96         1111.92       0.40
+Avocado Toast                Breakfast    305  5.98          4.18          549.00         1098.00       0.44
+Halloumi Wrap               Sandwiches    288  5.92          4.14          512.64         1025.28       0.47
+Egg Sandwich                 Breakfast    346  4.45          3.11          463.64          927.28       0.50
+Cinnamon Roll                   Bakery    457  3.20          2.24          438.72          877.44       0.53
+Chicken Salad Bowl               Meals    179  8.08          5.65          434.97          869.94       0.55
+
+## Excess cost by category
+              excess_cost_6m   revenue  share_of_gap
+category                                            
+Matcha & Tea         2453.03  16212.11         0.154
+Bakery               2318.14  15039.57         0.146
+Desserts             2297.44  11863.82         0.144
+Sandwiches           2279.63  11530.81         0.143
+Cold Coffee          1694.90  12982.52         0.106
+Hot Coffee           1635.96  12680.65         0.103
+Breakfast            1281.48   7136.83         0.080
+Cold Drinks           984.48   7029.87         0.062
+Meals                 978.41   5272.37         0.061
+
+# Garden margin by product (observed)
+Garden products below 35% gross margin: 6 of 45, $15,909 of revenue (16% of Garden sales). At Harbour, none is below 53%.
+
+## Low-margin Garden products: current vs required prices (estimate)
+                             category  units  price  harbour_price  cost  garden_margin  harbour_margin  price_for_40pct  increase_for_40pct  gp_per_unit
+Product                                                                                                                                                  
+Sparkling Water           Cold Drinks    336   2.75           2.89  1.93           0.29            0.53             3.22                0.17         0.80
+Turkey & Cheese Sandwich   Sandwiches    317   9.65          10.13  6.75           0.30            0.53            11.25                0.17         2.84
+Chicken Pesto Sandwich     Sandwiches    354  10.75          11.29  7.39           0.31            0.54            12.32                0.15         3.29
+Brownie                      Desserts    554   5.15           5.41  3.39           0.34            0.56             5.65                0.10         1.73
+Cheesecake Slice             Desserts    465   6.75           7.09  4.40           0.34            0.57             7.33                0.09         2.31
+Chicken Salad Bowl              Meals    179  12.45          13.07  8.08           0.35            0.57            13.47                0.08         4.30
+Reading: with today's costs, reaching 40% margin on these items needs price rises of 8%-17%, above Harbour's own price for every one of them; reaching Harbour's margin would need far more. Repricing alone cannot fix them; the cost fix (script 02) is the real lever.
+
+## Price pilot candidates: +~5% to Harbour price (estimate; ranked by $ gain at elasticity -1)
+                        category  units_per_day  price  harbour_price  garden_margin  break_even_volume_loss  gain_yr_e0  gain_yr_e-1  gain_yr_e-2
+Product                                                                                                                                           
+Iced Matcha         Matcha & Tea           4.23   6.85           7.19           0.47                    0.09      520.88       247.13       -26.61
+Strawberry Matcha   Matcha & Tea           2.65   7.65           8.03           0.40                    0.11      364.80       198.85        32.90
+Cheesecake Slice        Desserts           2.57   6.75           7.09           0.34                    0.13      316.20       190.19        64.18
+Classic Matcha      Matcha & Tea           3.59   6.45           6.77           0.49                    0.09      416.00       188.97       -38.05
+Brownie                 Desserts           3.06   5.15           5.41           0.34                    0.13      288.08       175.09        62.09
+Frozen Yoghurt Cup      Desserts           2.68   6.15           6.46           0.37                    0.12      300.70       173.09        45.47
+Iced Latte           Cold Coffee           4.50   5.35           5.62           0.55                    0.08      439.56       172.54       -94.48
+Tiramisu Cup            Desserts           2.50   6.55           6.88           0.37                    0.12      298.32       170.79        43.27
+Pilot list total: $2,945/yr at elasticity 0, $1,517 at -1, $89 at -2 (29% of Garden revenue). These items sell 26 units/day at Garden; see section 4 below for how long a pilot on them needs.
+Why these: the most daily volume and the largest $ gain at elasticity -1 (how long a pilot on them needs: section 4 below). Low-margin items (desserts, 13% break-even) have MORE room for volume loss than high-margin drinks (8%): when the margin is thin, a 5% price rise is a large share of the profit per item. So desserts are the safest place to start; Iced Latte and Classic Matcha are the riskiest.
+All 45 products at Harbour price: $10,027/yr (e=0), $4,795 (e=-1), $-438 (e=-2) - close to script 02 (small differences: script 02 uses discounted revenue).
+
+## Detectable drop in pilot-item units at Garden (same method as script 03; 5% test, 80% power)
+           min detectable drop
+pilot days                    
+30                       10.2%
+61                        7.1%
+91                        5.8%
+If one month cannot detect drops below the ~10% break-even, the pilot on these 8 items needs 2 calendar months, or the +5% should apply to the whole Garden menu (whole-branch traffic is measurable to ~6% in one month, script 03).

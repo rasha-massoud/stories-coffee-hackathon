@@ -1,0 +1,16 @@
+# Uptown pricing
+Uptown: revenue $55,693 in 6 months, margin 62.6% (Harbour 65.0%). Price vs Harbour: 0.914; cost vs Harbour: 0.960 (observed)
+Break-even for moving to Garden level (+4.2%): pays off unless volume falls more than 6.3%
+Break-even for moving to Harbour level (+9.4%): pays off unless volume falls more than 13.0%
+
+## Annual gross-profit change from repricing Uptown (ESTIMATE, H1 x 2 volume)
+move Uptown prices to  Garden level (+4.2%)  Harbour level (+9.4%)
+elasticity                                                        
+-2.0                                -1597.0                -4678.0
+-1.5                                  -26.0                 -878.0
+-1.0                                 1545.0                 2921.0
+-0.5                                 3116.0                 6720.0
+ 0.0                                 4686.0                10519.0
+
+Context (observed): unit growth Jan-Feb -> May-Jun: Uptown +39.1%, Garden +41.3%, Harbour +49.9%. The cheapest branch grows slowest - low prices are not visibly buying growth (correlation only; location and footfall differ).
+Alternative explanation: Uptown may be priced low on purpose (competition, local incomes). The data cannot tell; Stories' management knows. Recommendation: a pilot (+4% to Garden's level on a few items for one calendar month), not a blanket rise.

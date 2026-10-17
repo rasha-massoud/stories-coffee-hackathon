@@ -1,0 +1,9 @@
+explanation,verdict,evidence
+Different product mix,Rejected,Margin on identical mix: Garden 47.4% vs Harbour 65.0%
+Heavier discounting,Rejected,Garden discounts less than Harbour (see table b)
+"Waste, spoilage, theft, over-portioning",Not testable here,"Costs are fixed standard costs, so real waste would not show in this export; the uniform 1.43 is a rule, not a waste pattern"
+Recent supplier price rise / inflation,Not testable from this export,"Recorded costs are flat Jan-Jun, but a cost sheet that is never updated would also be flat; invoices would show it"
+Packaging or labour loaded into COGS,Not distinguishable from a fixed allocation,A standard-cost uplift can include packaging or labour without varying by order type or weekday; recipe/packaging/payroll records would show it
+Different supplier contract or delivery premium for Garden,Consistent,A uniform markup on all inputs matches a contract-level or logistics surcharge
+Rent/overhead allocated into Garden's COGS,Consistent,A uniform 43% uplift also matches an accounting allocation; this would mean NO cash saving (see assumption A1)
+Data entry / costing-sheet error,Consistent,A single wrong multiplier in the cost sheet would look exactly like this

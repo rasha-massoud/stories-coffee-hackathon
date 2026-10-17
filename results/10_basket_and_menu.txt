@@ -1,0 +1,119 @@
+# 1. Attach rates: drink-only and food-only visits
+
+## Visit types (observed)
+              revenue     gp  share
+type                               
+drink + food   12.803  7.460  0.282
+drink only      6.952  4.475  0.409
+food only       8.328  4.403  0.309
+
+## Share of visits that are drink + food, by Branch
+         attach
+Branch         
+Garden    0.284
+Harbour   0.282
+Uptown    0.279
+
+## Share of visits that are drink + food, by otype
+          attach
+otype           
+Dine-in    0.279
+Takeaway   0.287
+
+## Share of visits that are drink + food, by daypart
+         attach
+daypart        
+morning   0.275
+day       0.285
+evening   0.283
+
+Average GP of the food item in a drink+food visit: $3.32; of the drink item: $3.30 (observed)
+Drink-only visits per year: 27,730; food-only: 20,918 (H1 x 2)
+
+## Upsell value (ESTIMATE; conversion = share of single-category visits that add the other category)
+                             drink-only + food $/yr  food-only + drink $/yr  total $/yr
+conversion combo discount $                                                            
+0.03       0.0                               2759.0                  2073.0      4832.0
+           0.5                               2343.0                  1760.0      4103.0
+0.05       0.0                               4598.0                  3456.0      8054.0
+           0.5                               3905.0                  2933.0      6838.0
+0.10       0.0                               9197.0                  6911.0     16108.0
+           0.5                               7810.0                  5865.0     13676.0
+Caveat: a combo discount also goes to customers who would have bought both anyway (deadweight). With a $0.50 discount on all 19,126 existing combo visits/yr, the giveaway would be $9,563/yr - more than most upsell gains above. So: a barista prompt or a menu-board suggestion (no discount), not a discounted combo.
+
+## Most common drink-food category pairs (observed)
+                           visits
+(Matcha & Tea, Bakery)       2076
+(Hot Coffee, Bakery)         1645
+(Cold Coffee, Bakery)        1368
+(Cold Drinks, Bakery)         605
+(Cold Drinks, Sandwiches)     549
+(Cold Coffee, Desserts)       482
+(Hot Coffee, Desserts)        477
+(Matcha & Tea, Desserts)      459
+
+# 2. Menu engineering (company-wide; GP per unit at Harbour/Uptown costs to avoid Garden's cost distortion)
+Cut-offs: popularity >= 841 units (70% of average); GP/unit >= $3.66 (weighted average)
+
+Dog (review): 3 items, 3% of units
+                           category  units_all  gp_per_unit
+Product                                                    
+Espresso                 Hot Coffee        687         2.05
+Mint Tea               Matcha & Tea        631         3.10
+English Breakfast Tea  Matcha & Tea        473         2.97
+
+Plowhorse (popular, low $: reprice/re-cost): 18 items, 45% of units
+                        category  units_all  gp_per_unit
+Product                                                 
+Butter Croissant          Bakery       2238         2.60
+Cappuccino            Hot Coffee       1681         3.02
+Chocolate Cookie          Bakery       1667         2.31
+Chocolate Croissant       Bakery       1558         2.77
+Iced Americano       Cold Coffee       1546         3.03
+Cinnamon Roll             Bakery       1515         3.04
+Flat White            Hot Coffee       1372         3.20
+Pistachio Cookie          Bakery       1331         2.34
+Brownie                 Desserts       1321         2.86
+Banana Bread              Bakery       1258         2.99
+Still Water          Cold Drinks       1193         1.34
+Peach Iced Tea       Cold Drinks       1187         3.40
+Almond Croissant          Bakery       1184         3.08
+Americano             Hot Coffee       1125         2.50
+Frozen Yoghurt Cup      Desserts       1120         3.54
+Sparkling Water      Cold Drinks       1065         1.46
+Lemonade             Cold Drinks       1042         3.58
+Blueberry Muffin          Bakery        930         2.74
+
+Puzzle (high $, low sales: promote): 5 items, 5% of units
+                      category  units_all  gp_per_unit
+Product                                               
+Tuna Sandwich       Sandwiches        721         5.30
+Granola Yoghurt      Breakfast        576         4.73
+Chicken Salad Bowl       Meals        552         7.09
+Quinoa Bowl              Meals        502         6.99
+Soup of the Day          Meals        450         4.56
+
+Star (keep, feature): 19 items, 47% of units
+                              category  units_all  gp_per_unit
+Product                                                       
+Iced Latte                 Cold Coffee       2629         3.76
+Iced Matcha               Matcha & Tea       2322         4.50
+Classic Matcha            Matcha & Tea       1963         4.33
+Cold Brew                  Cold Coffee       1498         4.07
+Strawberry Matcha         Matcha & Tea       1486         4.65
+Vanilla Latte               Hot Coffee       1396         3.86
+Spanish Latte               Hot Coffee       1235         4.12
+Cheesecake Slice              Desserts       1216         3.77
+Chicken Pesto Sandwich      Sandwiches       1146         5.77
+Chai Latte                Matcha & Tea       1123         3.87
+Iced Mocha                 Cold Coffee       1114         4.10
+Caramel Latte               Hot Coffee       1099         4.01
+Turkey & Cheese Sandwich    Sandwiches       1070         5.09
+Tiramisu Cup                  Desserts       1034         3.80
+Fresh Orange Juice         Cold Drinks       1003         3.76
+Egg Sandwich                 Breakfast        994         5.23
+Halloumi Wrap               Sandwiches        971         5.97
+Coffee Frappe              Cold Coffee        958         4.12
+Avocado Toast                Breakfast        905         5.48
+
+Reading: 'Dogs' are candidates for review, not automatic removal - removing an item only saves money if its buyers switch to a better item rather than leave. Test removal at one branch before acting.

@@ -1,0 +1,46 @@
+# Basket affinity: pairs bought together more than chance
+discovery Jan-Mar: 14,792 baskets, 990 product pairs, 200 shuffles
+validation Apr-Jun: 19,095 baskets, 990 product pairs, 200 shuffles
+
+Discovery: pairs with z > 3.5 (strict threshold for 990 pairs tested): 19
+Expected by chance alone at this threshold: ~0.23 pairs (one-sided p for z=3.5)
+Distribution of discovery z-scores: mean +0.06, sd 1.31, max +5.38, min -2.85 (pure chance would give mean 0, sd ~1)
+
+## Top 10 discovery pairs and how they did on unseen Apr-Jun data
+                                           together  expected (shuffle)    sd  lift     z  together (validation)  lift (validation)  z (validation)
+A                      B                                                                                                                           
+Chocolate Croissant    Iced Matcha               41               19.28  4.04  2.13  5.38                     48               1.85            4.38
+Blueberry Muffin       Iced Matcha               31               12.88  3.44  2.41  5.26                     21               1.42            1.59
+Cinnamon Roll          Classic Matcha            38               16.98  4.04  2.24  5.21                     38               1.81            3.81
+Halloumi Wrap          Sparkling Water           17                6.30  2.08  2.70  5.14                     13               1.78            2.12
+Chicken Pesto Sandwich Still Water               21                7.98  2.59  2.63  5.03                     17               1.64            2.00
+Iced Matcha            Pistachio Cookie          39               18.39  4.30  2.12  4.79                     43               2.08            5.67
+Cinnamon Roll          Strawberry Matcha         27               12.14  3.39  2.22  4.39                     38               2.36            5.77
+Chocolate Cookie       Iced Matcha               46               24.98  4.80  1.84  4.38                     43               1.62            3.50
+Chicken Pesto Sandwich Fresh Orange Juice        17                6.50  2.43  2.62  4.33                     12               1.36            1.02
+Tuna Sandwich          Vanilla Latte             16                5.74  2.43  2.79  4.23                      4               0.56           -1.23
+
+Do pair z-scores repeat across periods? Correlation discovery vs validation: +0.43 (near 0 = the 'affinities' are noise; real affinities would repeat)
+Pairs significant in discovery AND z > 2 in validation: 14
+Survivor Chocolate Croissant + Iced Matcha: validation lift 1.85; baskets/yr with Chocolate Croissant but not Iced Matcha: 2,738, with Iced Matcha but not Chocolate Croissant: 4,190; ESTIMATE at an ASSUMED 3% add-on rate: $649/yr
+Survivor Cinnamon Roll + Classic Matcha: validation lift 1.81; baskets/yr with Cinnamon Roll but not Classic Matcha: 2,708, with Classic Matcha but not Cinnamon Roll: 3,592; ESTIMATE at an ASSUMED 3% add-on rate: $612/yr
+Survivor Halloumi Wrap + Sparkling Water: validation lift 1.78; baskets/yr with Halloumi Wrap but not Sparkling Water: 1,744, with Sparkling Water but not Halloumi Wrap: 1,970; ESTIMATE at an ASSUMED 3% add-on rate: $384/yr
+Survivor Chicken Pesto Sandwich + Still Water: validation lift 1.64; baskets/yr with Chicken Pesto Sandwich but not Still Water: 2,114, with Still Water but not Chicken Pesto Sandwich: 2,180; ESTIMATE at an ASSUMED 3% add-on rate: $406/yr
+Survivor Iced Matcha + Pistachio Cookie: validation lift 2.08; baskets/yr with Iced Matcha but not Pistachio Cookie: 4,204, with Pistachio Cookie but not Iced Matcha: 2,370; ESTIMATE at an ASSUMED 3% add-on rate: $561/yr
+Survivor Cinnamon Roll + Strawberry Matcha: validation lift 2.36; baskets/yr with Cinnamon Roll but not Strawberry Matcha: 2,730, with Strawberry Matcha but not Cinnamon Roll: 2,662; ESTIMATE at an ASSUMED 3% add-on rate: $555/yr
+Survivor Chocolate Cookie + Iced Matcha: validation lift 1.62; baskets/yr with Chocolate Cookie but not Iced Matcha: 2,988, with Iced Matcha but not Chocolate Cookie: 4,190; ESTIMATE at an ASSUMED 3% add-on rate: $637/yr
+Survivor Sparkling Water + Turkey & Cheese Sandwich: validation lift 2.42; baskets/yr with Sparkling Water but not Turkey & Cheese Sandwich: 1,956, with Turkey & Cheese Sandwich but not Sparkling Water: 1,928; ESTIMATE at an ASSUMED 3% add-on rate: $332/yr
+Survivor Classic Matcha + Pistachio Cookie: validation lift 1.59; baskets/yr with Classic Matcha but not Pistachio Cookie: 3,622, with Pistachio Cookie but not Classic Matcha: 2,412; ESTIMATE at an ASSUMED 3% add-on rate: $519/yr
+Survivor Chocolate Cookie + Mint Tea: validation lift 1.98; baskets/yr with Chocolate Cookie but not Mint Tea: 3,104, with Mint Tea but not Chocolate Cookie: 1,130; ESTIMATE at an ASSUMED 3% add-on rate: $351/yr
+Survivor Blueberry Muffin + Chai Latte: validation lift 1.76; baskets/yr with Blueberry Muffin but not Chai Latte: 1,688, with Chai Latte but not Blueberry Muffin: 2,054; ESTIMATE at an ASSUMED 3% add-on rate: $337/yr
+Survivor Butter Croissant + Iced Matcha: validation lift 1.77; baskets/yr with Butter Croissant but not Iced Matcha: 4,014, with Iced Matcha but not Butter Croissant: 4,140; ESTIMATE at an ASSUMED 3% add-on rate: $791/yr
+Survivor Chocolate Cookie + Classic Matcha: validation lift 1.77; baskets/yr with Chocolate Cookie but not Classic Matcha: 3,014, with Classic Matcha but not Chocolate Cookie: 3,592; ESTIMATE at an ASSUMED 3% add-on rate: $589/yr
+Survivor Chicken Salad Bowl + Sparkling Water: validation lift 2.94; baskets/yr with Chicken Salad Bowl but not Sparkling Water: 986, with Sparkling Water but not Chicken Salad Bowl: 1,988; ESTIMATE at an ASSUMED 3% add-on rate: $406/yr
+
+## Validated pairs grouped by category pair
+                          pairs  lift_min  lift_max
+categories                                         
+Bakery + Matcha & Tea        10      1.59      2.36
+Cold Drinks + Meals           1      2.94      2.94
+Cold Drinks + Sandwiches      3      1.64      2.42
+Reading: two families replicate - matcha/tea drinks with sweet bakery, and savoury food (sandwiches, bowls) with water. Per-pair upsell estimates above overlap (several pairs share Iced Matcha), so they are NOT additive. Action: two barista/menu-board prompts ('add a pastry to your matcha', 'add a drink to your sandwich'), tested at one branch for a month; the 3% conversion is an assumption, not a measurement.

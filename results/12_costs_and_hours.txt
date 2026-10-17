@@ -1,0 +1,66 @@
+# 1. Procurement benchmark: what if every branch bought at the cheapest branch's unit cost?
+
+## Unit cost relative to Harbour, across 45 products (observed)
+Branch  Garden  Harbour  Uptown
+mean     1.430      1.0   0.960
+min      1.426      1.0   0.952
+max      1.439      1.0   0.965
+Branch with the lowest unit cost, per product: {'Uptown': 45}
+
+## Annual gross-profit gain if each branch bought at Harbour's or Uptown's unit cost (ESTIMATE, H1 x 2)
+         COGS actual (6m)  saving at Harbour cost $/yr  saving at Uptown cost $/yr
+Harbour           52730.0                          0.0                      4240.0
+Garden            52954.0                      31847.0                     34820.0
+Uptown            20811.0                      -1745.0                         0.0
+Total            126495.0                      30101.0                     39060.0
+Beyond the Garden-only fix ($31,847/yr), matching Uptown's costs everywhere adds $7,213/yr (Harbour $4,240, Garden $2,973).
+Caveat: Uptown sells the least, but sales volume says nothing about purchasing terms or pooled contracts - the reason for its lower recorded costs is unknown (local supplier, delivery terms or a different cost rule). Same audit as Garden: compare Uptown's and Harbour's invoices for a few items. This is a secondary, smaller lever (~4% of COGS) than Garden's 43%.
+
+# 2. Gross profit per open hour, by branch and hour (observed, averaged over all 181 days)
+
+## Average gross profit per hour ($/hour)
+Branch  Garden  Harbour  Uptown
+hour                           
+7          5.5     11.3     4.4
+8          8.4     15.6     5.0
+9         11.6     24.2     7.5
+10        10.5     23.6     7.9
+11        12.1     22.9     7.8
+12        11.4     24.5     8.5
+13        14.0     28.8     9.9
+14        13.5     28.7    10.1
+15        14.4     27.4    10.1
+16        13.8     30.5    10.8
+17        13.9     28.6    10.6
+18        16.0     33.2    11.9
+19        19.6     42.1    15.3
+20        24.5     51.4    18.2
+21        32.4     67.5    24.9
+22        24.0     52.1    19.8
+23        13.0     27.4    10.1
+
+## The 12 weakest branch-hours (observed GP $/hour)
+                        GP $/hour
+Branch daytype    hour           
+Garden Saturday   7           3.1
+Uptown Saturday   8           3.2
+                  7           4.0
+       other days 7           4.3
+       Saturday   9           4.6
+       other days 8           4.8
+       Tuesday    7           4.9
+       Saturday   11          5.1
+                  12          5.3
+Garden other days 7           5.5
+Uptown Saturday   18          5.7
+Garden Saturday   8           6.4
+
+## Gross profit per year earned in the first (7:00) and last (23:00) hour, by branch (observed x2)
+            GP $/yr
+Garden  7    1986.0
+        23   4713.0
+Harbour 7    4108.0
+        23   9902.0
+Uptown  7    1580.0
+        23   3649.0
+Decision rule: keep an hour open only if the extra staffing + energy cost of that hour is below the avoidable contribution it earns (recorded GP is a starting point; applying the rule needs Stories' own labour and energy costs). If some of its customers would come at another hour instead (unmeasured; could be zero), closing loses less than the GP figure suggests.

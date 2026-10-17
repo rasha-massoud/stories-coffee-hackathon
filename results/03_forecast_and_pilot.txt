@@ -1,0 +1,50 @@
+# Garden daily-traffic forecast
+Train: 2026-01-01 to 2026-04-30 (120 days) | Test: 2026-05-01 to 2026-06-30 (61 days)
+
+## Out-of-sample accuracy on May-Jun (lower is better)
+                                                 MAE (txns/day)   MAPE  bias (txns/day)  resid sd of log ratio
+B1 naive: same weekday last week                          8.738  0.123            0.836                  0.148
+B2 weekday average (train)                               15.326  0.207           15.239                  0.117
+M1 linear: weekday + trend                                6.285  0.091            0.527                  0.113
+M2 linear: weekday + trend + control branches             6.474  0.093            0.488                  0.115
+M3 linear: weekday + trend + within-month cycle           6.876  0.101           -0.575                  0.123
+
+Best: M1 linear: weekday + trend. It cuts MAE by 28% vs the naive baseline.
+
+## M2 coefficients (log scale)
+               coef
+dow_1         0.441
+dow_2         0.067
+dow_3         0.060
+dow_4         0.107
+dow_5        -0.276
+dow_6        -0.082
+t             0.002
+log_controls  0.151
+
+## Largest test-period errors (weak spots)
+            actual  predicted  error   weekday
+dt                                            
+2026-06-02      94      110.0  -16.0   Tuesday
+2026-06-01      82       66.0   16.0    Monday
+2026-06-13      65       49.0   16.0  Saturday
+2026-06-23     131      117.0   14.0   Tuesday
+2026-05-14      53       67.0  -14.0  Thursday
+2026-06-04      57       71.0  -14.0  Thursday
+Error by weekday (MAE): {'Friday': 6.1, 'Monday': 7.1, 'Saturday': 6.1, 'Sunday': 3.2, 'Thursday': 6.9, 'Tuesday': 6.9, 'Wednesday': 8.1}
+Lag-1 autocorrelation of test residuals: -0.30 (negative -> errors partly cancel over a multi-day pilot, so treating days as independent below is conservative)
+Adding Harbour+Uptown same-day traffic (M2) did NOT beat M1: day-to-day shocks are branch-specific, so the other branches add little as a same-day control. Rejected M2 in favour of the simpler M1.
+Adding the within-month cycle (M3) also did NOT help out of sample: 3 extra parameters fitted on only 4 training months overfit. Rejected M3; the cycle is still real (script 04) but too weak per day to improve a branch-level forecast.
+B2 shows why trend matters: ignoring growth biases the forecast by +15 txns/day.
+
+## Smallest Garden traffic drop a pilot could detect (using the best model as counterfactual)
+           min detectable traffic drop
+pilot days                            
+14                                8.4%
+28                                6.0%
+42                                4.9%
+56                                4.2%
+Break-even volume loss for a 5% price rise is 9.6% (script 02); a 28-day pilot can detect drops well below that, so the pilot can answer the decision question.
+
+Identified IDs seen at 2+ branches: 94% (but see script 13: Customer IDs behave like random labels, so this says nothing about real customers).
+Risk: customers could move from Garden to Harbour/Uptown during a Garden price pilot. That would inflate the other branches and make Garden's measured drop look LARGER than the true company-wide loss (a conservative bias). Customer IDs cannot measure this (script 13). Script 14 compares ID-free pilot metrics in the same units: primary = Garden traffic vs frozen M1; cross-check = Garden / (Harbour + Uptown).

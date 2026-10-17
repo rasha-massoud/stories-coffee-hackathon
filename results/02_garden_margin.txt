@@ -1,0 +1,133 @@
+# Garden margin analysis
+
+## Branch totals, Jan-Jun 2026 (observed)
+           revenue  gross_profit      cogs  lines  margin
+Branch                                                   
+Garden    99748.55      46794.49  52954.06  16907   0.469
+Harbour  150483.58      97753.94  52729.64  24654   0.650
+Uptown    55693.01      34882.06  20810.95   9616   0.626
+
+## Gross margin by month (observed)
+Branch  Garden  Harbour  Uptown
+month                          
+1        0.469    0.649   0.627
+2        0.467    0.653   0.625
+3        0.472    0.649   0.628
+4        0.467    0.650   0.626
+5        0.472    0.648   0.624
+6        0.468    0.649   0.628
+
+## Per-product ratios vs Harbour (45 products, observed)
+       garden_cost_vs_harbour  uptown_cost_vs_harbour  garden_price_vs_harbour  uptown_price_vs_harbour
+count                 45.0000                 45.0000                  45.0000                  45.0000
+mean                   1.4301                  0.9596                   0.9524                   0.9141
+std                    0.0019                  0.0027                   0.0005                   0.0008
+min                    1.4261                  0.9524                   0.9512                   0.9122
+25%                    1.4290                  0.9583                   0.9520                   0.9136
+50%                    1.4302                  0.9596                   0.9526                   0.9141
+75%                    1.4308                  0.9614                   0.9528                   0.9144
+max                    1.4386                  0.9651                   0.9532                   0.9158
+
+Finding: every one of 45 products costs Garden 1.426-1.439x what it costs Harbour, while Uptown's costs are ~0.96x Harbour's. Garden's prices are 0.952x Harbour's on every product; Uptown's 0.914x.
+Unit costs never change within (product, branch) over 6 months -> they are standard/recipe costs set in a costing sheet, not measured purchase prices.
+
+## Garden/Harbour unit-cost ratio by month
+       mean    min    max
+month                    
+1      1.43  1.426  1.439
+2      1.43  1.426  1.439
+3      1.43  1.426  1.439
+4      1.43  1.426  1.439
+5      1.43  1.426  1.439
+6      1.43  1.426  1.439
+
+## Garden/Harbour unit-cost ratio by Category
+               mean    min    max
+Category                         
+Bakery        1.430  1.427  1.433
+Breakfast     1.431  1.431  1.431
+Cold Coffee   1.430  1.428  1.431
+Cold Drinks   1.429  1.426  1.431
+Desserts      1.430  1.429  1.432
+Hot Coffee    1.429  1.427  1.431
+Matcha & Tea  1.432  1.429  1.439
+Meals         1.430  1.430  1.431
+Sandwiches    1.430  1.429  1.430
+
+## Garden/Harbour unit-cost ratio by Order Type
+            mean    min    max
+Order Type                    
+Dine-in     1.43  1.426  1.439
+Takeaway    1.43  1.426  1.439
+
+## Garden/Harbour unit-cost ratio by weekday
+           mean    min    max
+weekday                      
+Friday     1.43  1.426  1.439
+Monday     1.43  1.426  1.439
+Saturday   1.43  1.426  1.439
+Sunday     1.43  1.426  1.439
+Thursday   1.43  1.426  1.439
+Tuesday    1.43  1.426  1.439
+Wednesday  1.43  1.426  1.439
+
+# Alternative explanations tested
+
+## (a) Mix-standardised margin (company-wide mix applied to each branch's prices/costs)
+         actual  same_mix
+Garden   0.4691    0.4744
+Harbour  0.6496    0.6500
+Uptown   0.6263    0.6325
+
+## (b) Operating behaviour by branch (observed)
+         discounted_line_share  discount_$_share_of_list  qty2_share  takeaway_share  items_per_txn  evening_txn_share_19h+
+Branch                                                                                                                     
+Garden                   0.055                     0.006       0.055           0.415          1.598                   0.441
+Harbour                  0.076                     0.009       0.058           0.409          1.597                   0.440
+Uptown                   0.058                     0.006       0.057           0.394          1.590                   0.450
+Discounts reduce revenue by 0.55% at Garden vs 0.86% at Harbour -> Garden discounts LESS, so discounts cannot explain its lower margin.
+
+## Alternative explanations
+                                                                                                verdict                                                                                                                                         evidence
+explanation                                                                                                                                                                                                                                             
+Different product mix                                                                          Rejected                                                                                           Margin on identical mix: Garden 47.4% vs Harbour 65.0%
+Heavier discounting                                                                            Rejected                                                                                                 Garden discounts less than Harbour (see table b)
+Waste, spoilage, theft, over-portioning                                               Not testable here                     Costs are fixed standard costs, so real waste would not show in this export; the uniform 1.43 is a rule, not a waste pattern
+Recent supplier price rise / inflation                                    Not testable from this export                               Recorded costs are flat Jan-Jun, but a cost sheet that is never updated would also be flat; invoices would show it
+Packaging or labour loaded into COGS                        Not distinguishable from a fixed allocation  A standard-cost uplift can include packaging or labour without varying by order type or weekday; recipe/packaging/payroll records would show it
+Different supplier contract or delivery premium for Garden                                   Consistent                                                                   A uniform markup on all inputs matches a contract-level or logistics surcharge
+Rent/overhead allocated into Garden's COGS                                                   Consistent                                   A uniform 43% uplift also matches an accounting allocation; this would mean NO cash saving (see assumption A1)
+Data entry / costing-sheet error                                                             Consistent                                                                         A single wrong multiplier in the cost sheet would look exactly like this
+
+## Decomposition of Garden's gap, Jan-Jun 2026 (ESTIMATE: counterfactual, same volume)
+Actual Garden gross profit                      46794.490
++ cost effect (costs at Harbour level)          15923.470
++ price effect (Harbour prices, same volume)     4985.907
+= both (interaction included)                   67703.867
+margin if both fixed                                0.646
+
+## Annualised value (ESTIMATE)
+                                conservative (H1 x 2)  run-rate (June x 12)
+cost gap $/yr                                 31847.0               38686.0
+price gap $/yr (0 volume loss)                 9972.0               12077.0
+For scale: company-wide gross profit Jan-Jun = $179,430; Garden's cost gap = 8.9% of it.
+
+## Cost-gap value by share of gap closed (ESTIMATE)
+                   25% closed  50% closed  75% closed  100% closed
+conservative $/yr      7962.0     15923.0     23885.0      31847.0
+run-rate $/yr          9672.0     19343.0     29015.0      38686.0
+
+## Annual gross-profit change from +5% Garden prices, by assumed elasticity (ESTIMATE)
+                  today's costs  after cost fix
+price elasticity                               
+ 0.0                     9972.0          9972.0
+-0.5                     7385.0          6588.0
+-1.0                     4797.0          3205.0
+-1.5                     2210.0          -179.0
+-2.0                     -377.0         -3562.0
+-2.5                    -2964.0         -6945.0
+-3.0                    -5552.0        -10329.0
+Break-even (today's costs): a 5.0% price rise pays off unless volume falls more than 9.6% (elasticity worse than -1.93).
+Break-even (after cost fix): a 5.0% price rise pays off unless volume falls more than 7.4% (elasticity worse than -1.47).
+
+Figures written to figures/01-04.

@@ -1,0 +1,13 @@
+# Stock-out screen: zero or unusually low sales days
+Product-branch-days: 24,435. Days with zero sales: 5,205 observed vs 4,884 expected by chance (Poisson).
+
+## Zero-sales days for products that normally sell (observed vs chance)
+                             days  zero-sales days observed  zero-sales days expected by chance
+expected units that day >=                                                                     
+2                           11276                       737                              645.87
+3                            5381                       146                              115.65
+4                            2528                        20                               19.57
+6                             615                         2                                0.62
+Overall dispersion (variance / Poisson variance): 1.087 (1.0 = pure chance)
+Extreme low days (P(sales <= observed) < 0.1%): 0 observed; chance alone would give up to ~24
+Reading: zero-sales days run only slightly above chance (consistent with ordinary extra variation, dispersion ~1.09), and there are no extreme low-sales days at all. The transaction data shows no stock-out signal, so product availability does not appear to be a profit lever. Limit: a product that runs out late in the day would only show as a partial shortfall, which this daily screen can't separate from noise; an hourly screen or inventory records would be needed.

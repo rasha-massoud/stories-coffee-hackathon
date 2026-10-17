@@ -1,0 +1,462 @@
+# 1. Mid-month dip
+Non-promo branch-days used: 495 (promo weeks excluded so discounts cannot create the pattern)
+
+## Effect vs days 1-7 (observed, controls: weekday, branch, trend; robust SEs)
+                d08-14 effect  d15-21 effect  d22-31 effect  d08-14 p  d15-21 p  d22-31 p
+txns                   -0.047         -0.083         -0.062     0.012     0.000     0.000
+revenue                -0.034         -0.070         -0.053     0.105     0.002     0.005
+gp                     -0.035         -0.070         -0.051     0.095     0.002     0.006
+basket                  0.014          0.015          0.010     0.183     0.198     0.252
+items_per_txn           0.010          0.008          0.006     0.232     0.361     0.455
+price_per_item          0.003          0.007          0.004     0.577     0.311     0.426
+Reading: if the dip is visits only, txns falls but basket/items/price per item stay flat.
+
+## Traffic vs normal by day of month (observed, % vs weekday/branch/trend expectation)
+     % vs expected
+dom               
+1              5.4
+2              0.9
+3              9.3
+4              4.5
+5              4.5
+6              6.5
+7              3.7
+8              0.4
+9             -2.7
+10            -0.3
+11             2.1
+12            -0.7
+13             0.6
+14             1.0
+15            -0.9
+16            -0.8
+17            -6.6
+18            -0.5
+19            -5.5
+20            -4.1
+21            -6.1
+22            -1.1
+23            -0.7
+24            -8.0
+25            -6.8
+26             1.6
+27            -3.9
+28             2.4
+29             4.9
+30            -1.9
+31             2.8
+
+## Alternative explanations
+
+## (a) Phase effect on txns, estimated separately for each month (observed)
+   d08-14  d15-21  d22-31
+1   0.063   0.007   0.019
+2  -0.073  -0.118  -0.031
+3  -0.037  -0.226   0.006
+4  -0.086  -0.054  -0.063
+5   0.018   0.022   0.030
+6  -0.006   0.035   0.034
+Months where days 15-21 are below days 1-7: 3 of 6
+
+## (b) Weekday mix of each phase (non-promo days) - shares should be similar
+dow     Friday  Monday  Saturday  Sunday  Thursday  Tuesday  Wednesday
+phase                                                                 
+d01-07   0.143   0.143     0.143   0.143     0.143    0.143      0.143
+d08-14   0.139   0.167     0.139   0.167     0.111    0.139      0.139
+d15-21   0.156   0.125     0.156   0.125     0.156    0.125      0.156
+d22-31   0.145   0.145     0.145   0.145     0.145    0.145      0.127
+(c) With month fixed effects instead of a linear trend: {'d08-14': -0.027, 'd15-21': -0.042, 'd22-31': -0.003}
+
+## (d) Phase effect on txns by branch (observed)
+         d08-14  d15-21  d22-31
+Harbour  -0.044  -0.081  -0.063
+Garden   -0.029  -0.076  -0.036
+Uptown   -0.068  -0.093  -0.087
+
+## (e) First week (days 1-7) vs rest of month: pooled, per month, and placebo windows (observed)
+controls                            linear trend  month fixed effects + trend
+first-week effect                          0.068                        0.057
+95% CI low                                 0.038                        0.016
+95% CI high                                0.098                        0.100
+p (clustered by date)                      0.000                        0.006
+month 1                                    0.014                       -0.024
+month 2                                    0.115                        0.081
+month 3                                    0.094                        0.051
+month 4                                    0.110                        0.074
+month 5                                    0.024                       -0.018
+month 6                                    0.018                       -0.018
+busiest 7-day window starts on day         1.000                       28.000
+Reading: the first-week lift is significant overall (+5.7% to +6.8%), but it is concentrated in Feb-Apr (+5% to +11%) and roughly absent in Jan, May and Jun. The busiest 7-day window starts between day 26 and day 1, i.e. around the turn of the month. It is not a stable every-month rule.
+ASSUMPTION (not testable here): Feb-Apr roughly matches the university spring semester in session; Jan is break and May-Jun finals/summer. A month-end payday/allowance cycle among students would fit this pattern.
+
+## Payday test
+
+## Units effect by price tier (premium = product avg price > $5.45)
+         d08-14  d15-21  d22-31
+cheap    -0.021  -0.070  -0.054
+premium  -0.057  -0.083  -0.057
+
+## Units effect by category
+              d08-14  d15-21  d22-31
+Cold Drinks   -0.125  -0.173  -0.188
+Breakfast      0.069  -0.149   0.019
+Cold Coffee   -0.060  -0.099  -0.061
+Desserts      -0.057  -0.097  -0.123
+Hot Coffee    -0.015  -0.095  -0.008
+Bakery         0.020  -0.070  -0.040
+Meals         -0.025  -0.045  -0.069
+Matcha & Tea  -0.060   0.004  -0.014
+Sandwiches     0.027   0.024  -0.046
+
+## Txns effect: identified vs anonymous customers
+            d08-14  d15-21  d22-31
+anonymous   -0.035  -0.080  -0.063
+identified  -0.056  -0.085  -0.066
+
+## Txns effect by time of day
+               d08-14  d15-21  d22-31
+morning 7-11    0.026  -0.004  -0.022
+day 12-18      -0.073  -0.099  -0.106
+evening 19-23  -0.055  -0.095  -0.045
+
+ESTIMATE: if days 8-31 matched first-week traffic, revenue would be $2,162/month higher and gross profit $1,261/month higher ($15,126/yr GP). This is an upper bound: nobody can make every day look like payday week.
+ESTIMATE: recovering a quarter of the gap = $3,782/yr GP.
+Days 15-21 alone account for $511/month of the GP gap.
+Practical value is less about recovering this $ and more about MEASUREMENT: the turn-of-month swing (~6%) is as large as the smallest traffic drop the Garden price pilot can detect in 28 days (6.0%, script 03). A pilot that starts on day 1 and is compared with mid-month days would be biased by the cycle. The pilot must cover a full calendar month or include the cycle in its counterfactual.
+
+
+# 2. Tuesday: who are the extra customers, and when do they come?
+Tuesday vs Mon/Wed/Thu/Fri (observed; controls: branch, trend, month phase, promo; clustered by date): +53.0% transactions (95% CI +48.6% to +57.4%)
+Tuesdays: 26, mean 285 txns/day (min 214); other weekdays mean 185 (max 259). Tuesdays below the other-weekday average: 0 of 26
+
+## Tuesday multiplier by month (observed; Tuesday txns/day / other-weekday txns/day)
+    Tuesday multiplier
+dt                    
+1                 1.57
+2                 1.50
+3                 1.54
+4                 1.47
+5                 1.53
+6                 1.53
+
+## Average transactions/day by weekday (observed)
+           txns/day
+dt                 
+Monday        178.0
+Tuesday       285.0
+Wednesday     186.0
+Thursday      180.0
+Friday        197.0
+Saturday      129.0
+Sunday        156.0
+Alternative: Tuesday steals customers from Monday/Wednesday. Rejected if Mon/Wed are not lower than Thu/Fri (Mon+Wed avg 182 vs Thu+Fri avg 189).
+
+## Identified customers per day: Tuesday vs other weekdays (observed)
+        custs  visits  visits per customer that day
+tue                                                
+False  115.24  117.34                          1.02
+True   177.77  182.58                          1.03
+
+## Is there a separate 'Tuesday crowd'? Observed vs expected if EVERY customer were equally Tuesday-prone (p = 28.2% of weekday visits on Tuesday; 500 simulations)
+                                                   observed  expected if everyone the same
+customers with >=1 Tuesday visit                      0.736                          0.747
+customers with >=50% of weekday visits on Tuesday     0.223                          0.226
+customers who ONLY come on Tuesday (>=3 visits)       0.006                          0.005
+variance of Tuesday share                             0.056                          0.055
+Identified share of transactions: Tuesday 64.2% vs other weekdays 63.3%
+
+## Tuesday multiplier by hour (observed; per-day txns Tuesday / other weekdays)
+         x
+hour      
+7     1.43
+8     1.70
+9     1.64
+10    1.33
+11    1.53
+12    1.57
+13    1.51
+14    1.55
+15    1.71
+16    1.52
+17    1.59
+18    1.58
+19    1.48
+20    1.42
+21    1.56
+22    1.60
+23    1.38
+
+## Tuesday multiplier by branch
+            x
+Branch       
+Garden   1.56
+Harbour  1.53
+Uptown   1.52
+
+## Tuesday multiplier by order type
+             x
+otype         
+Dine-in   1.51
+Takeaway  1.57
+
+## Tuesday multiplier by category (units)
+                 x
+Category          
+Breakfast     1.41
+Cold Coffee   1.47
+Sandwiches    1.49
+Bakery        1.52
+Desserts      1.53
+Cold Drinks   1.56
+Matcha & Tea  1.57
+Hot Coffee    1.59
+Meals         1.64
+
+## Basket per transaction: Tuesday vs other weekdays (observed)
+        revenue    gp
+is_tue               
+False      8.98  5.27
+True       9.03  5.28
+
+## Peak 19:00-23:00 load per branch, transactions per hour (observed)
+is_tue   other weekdays  Tuesday  extra txns/hour
+Branch                                           
+Garden              6.1      9.4              3.3
+Harbour             8.8     13.2              4.5
+Uptown              3.5      5.2              1.7
+
+## Whole-day transactions per branch (observed)
+is_tue   other weekdays  Tuesday
+Branch                          
+Garden             61.0     95.0
+Harbour            90.0    137.0
+Uptown             35.0     53.0
+Tuesday brings $905 more revenue and $527 more gross profit than an average weekday (observed) = $27,421/yr of GP that depends on whatever drives Tuesdays (estimate, x52 weeks).
+
+
+# 3. Evening: lower margin %, but is it a problem?
+
+## Margin % vs gross profit $ per visit, by time of day (observed)
+                 revenue        gp  lines  margin %   txns  share of txns  revenue / txn  GP $ / txn  items / txn
+daypart                                                                                                          
+morning 7-11    54636.97  32272.25   9394     0.591   6260          0.185          8.728       5.155        1.584
+day 12-18      114632.34  67113.44  19115     0.585  12646          0.373          9.065       5.307        1.597
+evening 19-23  136655.83  80044.80  22668     0.586  14981          0.442          9.122       5.343        1.600
+
+## Revenue mix by category (observed)
+Category       Bakery  Breakfast  Cold Coffee  Cold Drinks  Desserts  Hot Coffee  Matcha & Tea  Meals  Sandwiches
+daypart                                                                                                          
+morning 7-11    0.189      0.109        0.109        0.068     0.049       0.189         0.130  0.033       0.124
+day 12-18       0.155      0.080        0.118        0.076     0.084       0.150         0.137  0.063       0.137
+evening 19-23   0.146      0.046        0.159        0.065     0.121       0.091         0.201  0.052       0.120
+
+## Category gross margin (observed)
+              margin
+Category            
+Desserts       0.477
+Sandwiches     0.492
+Meals          0.518
+Breakfast      0.532
+Bakery         0.601
+Matcha & Tea   0.609
+Cold Drinks    0.632
+Cold Coffee    0.661
+Hot Coffee     0.666
+Evening margin at its own mix: 58.580%; at the DAYTIME product+branch mix: 58.545%; daytime actual: 58.547%
+Discount share of list revenue: evening 0.75%, day 0.68% -> discounts are not the reason
+
+## Basket type share by time of day (observed)
+type           drink + food  drink only  food only
+daypart                                           
+morning 7-11          0.275       0.402      0.323
+day 12-18             0.285       0.404      0.312
+evening 19-23         0.283       0.417      0.300
+
+## Average revenue and GP $ per transaction by basket type (observed)
+              revenue    gp
+type                       
+drink + food    12.80  7.46
+drink only       6.95  4.48
+food only        8.33  4.40
+
+## Dessert transactions that also include a drink (observed)
+               with drink
+daypart                  
+morning 7-11        0.431
+day 12-18           0.375
+evening 19-23       0.356
+Evening dessert transactions: 2,482 (16.6% of evening txns); without a drink: 1,599. GP/txn with drink $7.32 vs without $4.18
+
+ESTIMATE A - 'fix the mix' (what evening revenue would earn at daytime margin): $-97/yr -> effectively zero. The evening shift towards low-margin desserts is offset by a shift towards high-margin cold coffee and matcha. HYPOTHESIS REJECTED: there is no evening margin problem.
+ESTIMATE B - dessert+drink bundle: if 10% of evening dessert-only buyers add a drink at $3.36 avg GP (minus a $0.50 bundle discount): $914/yr GP
+ESTIMATE B - dessert+drink bundle: if 20% of evening dessert-only buyers add a drink at $3.36 avg GP (minus a $0.50 bundle discount): $1,829/yr GP
+ESTIMATE B - dessert+drink bundle: if 30% of evening dessert-only buyers add a drink at $3.36 avg GP (minus a $0.50 bundle discount): $2,743/yr GP
+
+
+# 4. Saturday: weakest day - is it the student customers?
+Saturday vs Mon/Wed/Thu/Fri (observed; controls: branch, trend, month phase, promo; clustered): -30.4% transactions (95% CI -33.2% to -27.6%)
+Sunday vs Mon/Wed/Thu/Fri (observed; controls: branch, trend, month phase, promo; clustered): -16.3% transactions (95% CI -19.2% to -13.3%)
+
+## (a) Basket per transaction (observed)
+          revenue    gp
+day                    
+Saturday     9.20  5.41
+Sunday       9.13  5.35
+weekday      8.98  5.27
+
+## (b) Transactions/day relative to weekdays, identified vs anonymous (observed)
+day         Saturday  Sunday
+anonymous      0.680   0.842
+identified     0.702   0.838
+Customers who never come on Saturday: observed 54.2% vs 53.8% expected if everyone were equally likely to skip Saturday (p = 12.8%). Variance of Saturday share: observed 0.0293 vs expected 0.0302
+(c) Saturday effect outside semester months (Jan, May, Jun): -29.7%; extra during semester (Feb-Apr): -0.021 log points (p = 0.62)
+
+## Saturday and Sunday traffic relative to weekdays, by month (observed)
+day  Saturday  Sunday
+dt                   
+1       0.733   0.850
+2       0.680   0.877
+3       0.685   0.812
+4       0.702   0.812
+5       0.702   0.830
+6       0.676   0.850
+
+## (d) Saturday vs weekday by branch
+             x
+Branch        
+Garden   0.701
+Harbour  0.688
+Uptown   0.699
+
+## Saturday vs weekday by time of day
+                   x
+daypart             
+morning 7-11   0.676
+day 12-18      0.712
+evening 19-23  0.687
+
+## Saturday vs weekday by category (units)
+                  x
+Category           
+Desserts      0.669
+Bakery        0.684
+Matcha & Tea  0.698
+Hot Coffee    0.704
+Cold Coffee   0.706
+Breakfast     0.726
+Cold Drinks   0.740
+Sandwiches    0.750
+Meals         0.769
+
+## Saturday vs weekday by order type
+              x
+otype          
+Dine-in   0.709
+Takeaway  0.673
+
+(e) Gross profit per day (observed): weekday $976, Saturday $696, Sunday $833. Saturday gap vs weekday = $14,562/yr (estimate, x52); closing 10% of it = $1,456/yr.
+
+
+# 5. Growth: where does +52% come from?
+
+## Monthly drivers, per day so short months don't distort (observed)
+       revenue/day  txns/day  basket $  margin  active  active share of ID pool  visits/active customer/day  anon txns/day
+month                                                                                                                     
+1         1327.276   146.613     9.053   0.586    1979                    0.566                       0.047         54.000
+2         1492.995   164.964     9.050   0.586    1965                    0.562                       0.054         59.179
+3         1638.028   181.548     9.023   0.587    2233                    0.639                       0.052         65.935
+4         1728.827   191.667     9.020   0.586    2283                    0.653                       0.053         70.267
+5         1860.966   207.710     8.959   0.587    2435                    0.697                       0.054         76.645
+6         2088.070   230.200     9.071   0.587    2525                    0.723                       0.058         83.133
+
+Revenue/day Jan -> Jun: +57.3%. Share explained by: more visits (txns/day) 100%, bigger baskets ($/txn) 0%
+Identified visits Jan -> Jun: +53.7% (raw monthly counts). Split: more ID customers active 57%, each active customer visits more often 43%
+Anonymous visits/day Jan -> Jun: +54.0%; identified visits/day: +58.8% -> walk-ins grow as fast as regulars
+Underlying growth (log-linear on daily revenue, weekday-adjusted): +8.5%/month (95% CI +7.7% to +9.3%)
+Is it slowing? Change in monthly growth rate in Apr-Jun vs Jan-Mar: -0.003 log points/month (p = 0.77)
+
+Branch: do shares change Jan-Feb -> May-Jun? chi-square p = 0.00975
+         early   late  growth  share z
+Branch                                
+Uptown    2797   3891   0.391   -1.840
+Garden    4902   6927   0.413   -1.667
+Harbour   6962  10434   0.499    3.001
+
+Category: do shares change Jan-Feb -> May-Jun? chi-square p = 0.339
+              early  late  growth  share z
+Category                                  
+Breakfast       696   967   0.389   -0.874
+Cold Drinks    1518  2116   0.394   -1.227
+Desserts       1271  1812   0.426   -0.475
+Matcha & Tea   2149  3068   0.428   -0.586
+Bakery         3218  4620   0.436   -0.474
+Sandwiches     1070  1537   0.436   -0.237
+Hot Coffee     2319  3421   0.475    0.711
+Cold Coffee    2043  3094   0.514    1.659
+Meals           377   617   0.637    1.884
+
+Product: do shares change Jan-Feb -> May-Jun? chi-square p = 0.172
+                     early  late  growth  share z
+Product                                          
+Iced Matcha            662   850   0.284   -2.392
+Lemonade               302   388   0.285   -1.589
+Frozen Yoghurt Cup     330   427   0.294   -1.567
+Cheesecake Slice       355   462   0.301   -1.546
+Granola Yoghurt        164   214   0.305   -1.019
+Chicken Salad Bowl     134   223   0.664    1.271
+Strawberry Matcha      364   611   0.679    2.248
+Quinoa Bowl            123   207   0.683    1.318
+Chocolate Croissant    387   657   0.698    2.505
+Iced Americano         377   646   0.714    2.622
+Products with |z| > 3 changed share beyond noise; with 45 products, |z| ~2 is expected by chance for a couple.
+
+## Capacity check: busiest hour, June Tuesdays (observed) and projected (estimate)
+         June Tuesday busiest hour (txns/hour)  December at current growth (estimate)  December at half the growth (estimate)
+Branch                                                                                                                       
+Garden                                    13.0                                   21.2                                    16.7
+Harbour                                   22.2                                   36.2                                    28.5
+Uptown                                     7.4                                   12.1                                     9.5
+
+
+# 6. Do discounts bring customers back later?
+
+## (a) Visits in the 30 days before/after a promo week, per customer (observed)
+                      before  after  change  customers
+window  got_discount                                  
+2026-03 False          0.962  0.950  -0.012        583
+        True           0.788  1.069   0.280        189
+2026-05 False          1.101  1.152   0.051        706
+        True           1.074  1.256   0.182        242
+Difference-in-differences (discounted minus not, change in visits per 30 days): +0.202 visits (95% CI +0.051 to +0.354, p = 0.01)
+Balance check: before the promo, discounted customers made -0.091 more visits (p = 0.09) -> groups comparable
+Controlling for each customer's visits before (guards against regression to the mean): discounted customers make +0.113 more visits in the next 30 days (95% CI +0.001 to +0.225, p = 0.05); baseline after-visits for non-discounted = 1.06
+  2026-03 only: +0.123 (p = 0.13)
+  2026-05 only: +0.105 (p = 0.19)
+
+## Share of promo-week lines discounted, by category (observed) - discounts are not random across products
+              discounted share
+Category                      
+Meals                    0.024
+Sandwiches               0.050
+Cold Drinks              0.050
+Breakfast                0.056
+Matcha & Tea             0.062
+Bakery                   0.063
+Hot Coffee               0.065
+Desserts                 0.508
+Cold Coffee              0.531
+
+(b) Days until the same customer's next visit, after a discounted vs normal visit (customer fixed effects, 18,040 visit pairs, 1,763 discounted): effect -1.7% (95% CI -7.0% to +3.8%, p = 0.53). Negative = comes back sooner.
+
+## Raw days to next visit (observed)
+       mean  median   size
+disc                      
+False  23.7    17.0  16277
+True   22.9    17.0   1763
+Naive comparison (biased): customers who ever got a discount average 6.8 visits vs 5.6 for others - but frequent visitors simply have more chances to receive a discount, so this is selection, not an effect. The within-customer test above removes it.
+
+## (c) Payback of the two promo weeks (ESTIMATE; 431 discounted identified customers, $5.29 GP per visit; total discount incl. anonymous $620)
+                 extra visits per discounted customer (30 days)  extra GP $ (all discounted ID customers)  discount given to ID customers $
+point estimate                                             0.11                                    257.87                             404.4
+upper 95% bound                                            0.23                                    513.52                             404.4
+At the point estimate the later visits return $258 of GP against $404 of discount given to identified customers (64% payback). At the upper 95% bound it would be $514 (127%), so break-even cannot be ruled out. The promo weeks (in practice Cold Coffee + Desserts promotions, ~50% of those lines discounted) most likely did not pay back: no lift during the week (README 8.1) and a small, uncertain return effect afterwards.

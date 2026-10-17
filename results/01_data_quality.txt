@@ -1,0 +1,64 @@
+# Data quality report
+Rows: 51,177 | Transactions: 33,887 | Dates: 2026-01-01 to 2026-06-30 (181 distinct days)
+Expected calendar days in range: 181
+Branches: ['Garden', 'Harbour', 'Uptown'] | Products: 45 | Categories: 9
+Transaction IDs start with 'SYN-': True (replacement IDs, as stated in the brief)
+
+## Missing values
+                         missing
+Transaction ID                 0
+Date                           0
+Time                           0
+Branch                         0
+Customer ID                18691
+Order Type                     0
+Product                        0
+Category                       0
+Quantity                       0
+Unit Price (USD)               0
+Discount Rate                  0
+Unit Cost (USD)                0
+Line Revenue (USD)             0
+Line Gross Profit (USD)        0
+dt                             0
+month                          0
+hour                           0
+weekday                        0
+cogs                           0
+list_rev                       0
+discounted                     0
+Exact duplicate rows: 132 (0.26% of rows, $741 revenue)
+Duplicate (transaction, product) lines: 166
+Exact duplicates could be double scans or genuine repeat items; the data cannot tell them apart.
+
+## Branch gross margin with vs without exact duplicates (decision: keep them; impact is negligible)
+         with_dups  without_dups
+Branch                          
+Garden      0.4691        0.4692
+Harbour     0.6496        0.6496
+Uptown      0.6263        0.6263
+Duplicates by branch share: {'Harbour': 0.52, 'Garden': 0.29, 'Uptown': 0.2} vs all rows: {'Harbour': 0.48, 'Garden': 0.33, 'Uptown': 0.19}
+
+Revenue = price x qty x (1 - discount): max abs error $0.000, lines off by > $0.02: 0
+Gross profit = revenue - cost x qty: max abs error $0.000, lines off by > $0.02: 0
+Non-positive prices/costs/revenue: 0 | Lines with cost > price: 0
+Transactions spanning >1 branch/date/customer/order type: 0/0/0/0
+
+Distinct list prices per (product, branch): min 1, max 1 -> prices are fixed per branch for the whole period
+Unit cost varies line-to-line within (product, branch): median CV 0.000, max 0.000
+
+## Value ranges
+       Unit Price (USD)  Unit Cost (USD)  Line Revenue (USD)  Line Gross Profit (USD)  Quantity  Discount Rate
+count          51177.00         51177.00            51177.00                 51177.00  51177.00       51177.00
+mean               5.69             2.34                5.98                     3.51      1.06           0.01
+std                2.17             1.39                2.71                     1.46      0.23           0.03
+min                1.87             0.55                1.68                     0.55      1.00           0.00
+25%                4.08             1.24                4.15                     2.59      1.00           0.00
+50%                5.41             1.98                5.41                     3.18      1.00           0.00
+75%                6.77             3.08                6.88                     4.17      1.00           0.00
+max               13.07             8.08               26.14                    14.84      2.00           0.15
+
+Hours present: 7:00 to 23:59
+Share of lines with a Customer ID: 63.5% (anonymous lines cannot be used for customer-level analysis)
+
+Conclusion: arithmetic is internally consistent and no dates are missing. 0.26% of rows are exact duplicates with no effect on branch margins. Prices AND unit costs are fixed per (product, branch) for all 6 months, so price elasticity cannot be estimated from within-branch variation.

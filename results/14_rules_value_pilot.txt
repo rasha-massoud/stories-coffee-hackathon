@@ -1,0 +1,120 @@
+# 1. The rules behind branch prices and costs (observed)
+Garden cost = round(Harbour cost x 1.43, 2): 45 of 45 products
+Uptown cost = round(Harbour cost x 0.96, 2): 45 of 45 products
+Garden price = round(Harbour price / 1.05, 2): 45 of 45 products
+Uptown price within 1 cent of Harbour price x 0.915: 36 of 45 products
+Uptown price within 1.1 cents of Harbour price x 0.915: 42 of 45 products
+Uptown price = round(GARDEN price x 0.96, 2): 45 of 45 products
+Reading: four exact rules. Uptown's prices are NOT a fixed share of Harbour's (only approximately x0.915); they are exactly Garden's rounded prices x 0.96. So the price lists form a chain Harbour -> /1.05 -> Garden -> x0.96 -> Uptown, and Garden's ~4.8% discount carries over to Uptown. Garden's recorded prices are ~4.8% below Harbour's while its recorded unit costs follow the 43% uplift rule. Whether either was intended is not visible in transactions; whoever owns the cost sheet and the price list can say why.
+Price Garden would need to earn Harbour's margin at its current costs: on average +50% vs today (i.e. ~+43% above Harbour) - not realistic, which is why the cost side must be fixed first.
+
+# 2. Expected value of the cost audit (ESTIMATE)
+
+## Expected annual value of acting on the audit (gap if real = $31,847/yr)
+share of gap closed if real               0.5      1.0
+P(uplift is a real purchase premium)                  
+0.10                                   1592.0   3185.0
+0.25                                   3981.0   7962.0
+0.50                                   7962.0  15923.0
+0.75                                  11943.0  23885.0
+ASSUMPTION: the audit costs ~$400 (about 16 staff hours). It pays for itself in year one if the chance that the uplift is real is above 2.5% (half the gap recovered, no implementation cost). Below that it is a small net cost; see the net-benefit lines in section 4b.
+
+# 3. The always-on discount (outside the two promo weeks)
+Discounts given: total $2,178 in 6 months; promo weeks $620; outside promo weeks $1,558 (= $3,115/yr) on 5.6% of lines, at rates [0.1]
+
+## Share of lines discounted outside promo weeks, by segment (observed)
+                              discounted share
+branch          Garden                   0.054
+                Harbour                  0.057
+                Uptown                   0.058
+category        Bakery                   0.054
+                Breakfast                0.057
+                Cold Coffee              0.059
+                Cold Drinks              0.057
+                Desserts                 0.055
+                Hot Coffee               0.057
+                Matcha & Tea             0.057
+                Meals                    0.042
+                Sandwiches               0.056
+order type      Dine-in                  0.057
+                Takeaway                 0.055
+has Customer ID False                    0.056
+                True                     0.056
+By hour: 5.0% to 6.2%. The discount is spread evenly everywhere - it is not targeted at slow hours, slow branches, loyalty members or any product. Together with finding 8.1 (no traffic lift in promo weeks) and the uniform pattern, it looks like a giveaway rather than a lever.
+ESTIMATE: stopping it saves up to $3,115/yr if no visits are lost - but see the stress test (4b): it breaks even at under 1% of visits lost, which no one-month test can detect. Recommendation: retarget it to the weakest hours rather than remove it blindly.
+
+# 4. Promo weeks as a natural price experiment (Cold Coffee + Desserts)
+Average effective price cut on Cold Coffee + Desserts during promo weeks: 7.8% (observed)
+Their share of units: 22.4% on promo days vs 23.1% otherwise. Change in their relative units (vs other categories, controls: weekday, trend): -2.6% (95% CI -6.8% to +1.8%)
+
+## Challenge: relative units of Cold Coffee + Desserts under different controls (observed)
+                                                               effect  95% low  95% high      p
+weekday + trend (first result)                                 -0.026   -0.068     0.018  0.251
++ month phase                                                  -0.014   -0.063     0.036  0.574
+placebo: days 12-19 in NON-promo months                        -0.051   -0.095    -0.006  0.027
+difference-in-differences: promo vs same days of other months   0.017   -0.041     0.077  0.568
+Preferred (difference-in-differences vs days 12-19 of other months): +1.7% change in category share (95% CI up to +7.7%) while those lines were 7.8% below list price. The first specification was confounded by the mid-month dip.
+LIMIT: this is the promoted categories' SHARE of units, not their absolute demand - other categories can move too, the 7.8% is the cut vs list price (not vs ordinary days), and who got the discount and whether it was advertised are unknown. No price elasticity is derived from it. It is weak supporting evidence only; the price decision rests on the pilot (script 15).
+
+# 4b. Stress test: which assumptions could flip each recommendation? (ESTIMATE)
+
+## Recommendation 2 (+5% Garden price): annual GP gain by cost-fix closure (columns) and elasticity (rows)
+cost gap closed    0.00    0.25    0.50    1.00
+elasticity                                     
+-2.0             -382.0 -1178.0 -1974.0 -3566.0
+-1.5             2208.0  1610.0  1013.0  -181.0
+-1.0             4797.0  4399.0  4000.0  3204.0
+-0.5             7386.0  7187.0  6988.0  6590.0
+ 0.0             9975.0  9975.0  9975.0  9975.0
+
+## Recommendation 3 (stop the always-on discount): net GP change if some visits are lost
+                                              net GP change $/yr
+visits lost when the 10% discount is removed                    
+0.000                                                     3115.0
+0.005                                                     1467.0
+0.010                                                     -182.0
+0.020                                                    -3480.0
+0.030                                                    -6777.0
+Recommendation 3 breaks even if removing the discount loses 0.9% of all visits. Recommendation 2 stays positive at elasticity -1 for any cost closure; its break-even elasticity (= -1 / (margin + price rise)) is about -1.93 with today's costs and about -1.47 after a full cost fix.
+Audit, first-year expected net benefit at P(real premium) = 0.0%, 50% of the gap recovered: $-400 (before any implementation cost; the value of corrected reporting is not monetised)
+Audit, first-year expected net benefit at P(real premium) = 2.5%, 50% of the gap recovered: $-2 (before any implementation cost; the value of corrected reporting is not monetised)
+Audit, first-year expected net benefit at P(real premium) = 25.0%, 50% of the gap recovered: $+3,581 (before any implementation cost; the value of corrected reporting is not monetised)
+Audit, first-year expected net benefit at P(real premium) = 50.0%, 50% of the gap recovered: $+7,562 (before any implementation cost; the value of corrected reporting is not monetised)
+With a 3-month implementation delay, first-year expected net benefit at P = 2.5%: $-101 (switching/contract costs not included)
+With a 3-month implementation delay, first-year expected net benefit at P = 25.0%: $+2,586 (switching/contract costs not included)
+With a 3-month implementation delay, first-year expected net benefit at P = 50.0%: $+5,571 (switching/contract costs not included)
+Break-even probability with the 3-month delay: 3.3% (vs 2.5% with no delay)
+So the audit is NOT positive in every scenario: at a zero chance of a real premium it costs ~$400. It breaks even at about 2.5% under these assumptions (50% recovery, one year, no further costs). Growth: all values use H1 x 2 volume.
+
+# 5. ID-free pilot metric: Garden's share of company transactions
+
+## Monthly backtest: Garden share of company traffic vs M1 Garden traffic (relative error of the monthly total)
+            share actual  share predicted  share error (relative)  M1 Garden-txns monthly error
+test month                                                                                     
+3                 0.3269           0.3401                 -0.0388                       -0.0142
+4                 0.3279           0.3294                 -0.0044                       -0.0149
+5                 0.3314           0.3275                  0.0118                        0.0193
+6                 0.3272           0.3304                 -0.0096                       -0.0171
+Garden's share is stable: 32.7% to 33.5% by month.
+One-month detectable change, including month-level error (ESTIMATE): Garden share metric ~7.8%; M1 traffic metric ~8.2%. M1's monthly-total errors range -1.7% to +1.9% (mean -0.7%); daily-noise-only power calculations (script 03: ~6%) understate this month-level error.
+
+## Monthly backtest of Garden / (Harbour + Uptown) transactions
+            ratio monthly error
+test month                     
+3                       -0.0485
+4                        0.0008
+5                        0.0240
+6                       -0.0046
+NOTE: the absolute detectable-drop figures in this section double-count noise (monthly errors already include daily noise) and are superseded by script 15's fixed-origin backtest. Use them only to RANK the metrics against each other.
+In Garden-traffic units: Garden-share metric detects ~11.6% (a 7.8% share change = that much Garden traffic); Garden/others ratio ~11.4%; M1 traffic vs forecast ~8.2%. Break-even Garden volume loss for +5%: 9.6%.
+Recommendation: primary pilot metric = Garden traffic vs the frozen M1 forecast (most sensitive, below break-even). Robustness check = Garden relative to Harbour + Uptown, which cancels company-wide shocks (holiday, slowdown) but is noisier. Neither needs Customer IDs. If the two disagree, the result is inconclusive (see README section 6 for the final protocol).
+
+# 6. Net annual value after implementation costs (ESTIMATE; implementation costs are assumptions, not data)
+
+## Full 12 months of post-implementation benefits minus one-off implementation costs, $ (implementation-year value is lower because of delays and can be negative in the allocation case)
+                                                                                         real premium, 50% recovered, e=-1  real premium, 100% recovered, e=0  allocation (no cash saving), e=-1  allocation (no cash saving), e=0
+one-off implementation cost $ (audit, menu/POS changes, monitoring, supplier switching)                                                                                                                                           
+0                                                                                                                  19924.0                            41822.0                             3204.0                            9975.0
+1000                                                                                                               18924.0                            40822.0                             2204.0                            8975.0
+3000                                                                                                               16924.0                            38822.0                              204.0                            6975.0
+Reading: even a $3,000 one-off cost leaves the real-premium cases clearly positive; in the allocation case the price rise alone can be close to break-even in year one at elasticity -1.
