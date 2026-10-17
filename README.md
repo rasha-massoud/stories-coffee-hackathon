@@ -101,8 +101,9 @@ Source: `results/02_garden_margin.txt`, `results/14_rules_value_pilot.txt`. All 
 | Garden price = round(Harbour price ÷ **1.05**, 2) | **45 of 45** |
 | Uptown price = round(**Garden** price × **0.96**, 2) | **45 of 45** (vs Harbour × 0.915: only 36 of 45 within 1 cent) |
 
-**The price lists form a chain:** Harbour → ÷ 1.05 → Garden → × 0.96 → Uptown. Uptown's prices are derived from **Garden's**, not Harbour's, so Garden's
-~4.8% discount carries over automatically to Uptown. One audit question ("why is Garden priced at Harbour ÷ 1.05?") therefore covers two branches' pricing.
+**The price lists are linked:** all 45 prices satisfy Harbour ÷ 1.05 = Garden and Garden × 0.96 = Uptown (rounded to cents), consistent with coordinated
+price rules. The data cannot show which list was the source; the reverse relationships match too. Confirm the pricing workflow with its owner. If Uptown's
+list is set from Garden's, Garden's ~4.8% discount also lowers Uptown's prices, so the audit question about Garden's pricing may cover both branches.
 
 ![Unit cost vs Harbour](figures/01_unit_cost_vs_harbour.png)
 
@@ -227,6 +228,15 @@ more precise, because a frozen trend drifts. We use a measurement error of **2.1
 - **Bias sensitivity:** if the forecast is 2% too high or too low, a harmless rise is kept 82–100% of the time and a harmful 12%-loss rise at most 3.3%.
 - **Trade-off:** after a cost fix (or under allocation) the rule often **rejects profitable rises** (a 5% loss is kept only 30% of the time). Stories gives up some upside
   in exchange for rarely locking in a loss.
+- **How much the 2.1% matters** (planning table; `results/15_pilot_decision_rule.txt`). The 2.1% is a planning convention from four windows, not a validated
+  bound. **Recalibrate it on recent pre-pilot POS data before running the pilot:**
+
+| Assumed monthly measurement error | Keep threshold: real premium not yet recovered | Keep threshold: cost fixed or allocation |
+|---|---|---|
+| 2.1% | 6.1% | 3.9% |
+| 3.0% | 4.7% | 2.5% |
+| 4.0% | 3.0% | 0.8% |
+
 - **Limits:** four 1-month and three overlapping 2-month windows; tail risks can't be validated. Only fixed-horizon keep probabilities are computed. Early stopping
   and extensions are not evaluated, so the protocol uses no open-ended extensions.
 
@@ -255,8 +265,8 @@ detect (≥ 4.1%). We judge the pilot on Garden's traffic vs the frozen M1 forec
 **Step 1. Cost audit (this month; finance; ~16 hours).** (1) Pull the cost sheet and 3 months of supplier invoices for the top 14 products at Garden, Harbour
 and Uptown. (2) **If Garden's invoices are ~43% higher → purchase premium** → move Garden to Harbour's or Uptown's supply terms, starting with the
 top 14 products. (3) If invoices match but the cost sheet doesn't → **allocation** (restate the branch P&L so overhead sits below gross profit) or
-**error** (correct the 1.43). (4) Ask who set Garden's prices at Harbour ÷ 1.05, and why. Uptown's price list is derived from Garden's, so the answer
-affects both branches.
+**error** (correct the 1.43). (4) Ask who set Garden's prices at Harbour ÷ 1.05, and why, and how the three price lists are linked (Uptown's prices equal
+Garden's × 0.96, so the answer may affect both branches).
 
 **Step 2. Garden price pilot.** +5% on the whole Garden menu (to Harbour's prices) for **one full calendar month** (fixed horizon), avoiding promotions. Run it
 separately from the cost fix so the two effects don't mix. Primary metric: total Garden transactions vs the frozen M1 forecast. Cross-check: Garden ÷ (Harbour + Uptown).
@@ -393,8 +403,8 @@ type are **not** controlled, so some pairs could reflect shopping context (e.g. 
   additive**. This is a modest, low-cost lever, not a headline.
 - **Limit:** affinity is co-purchase, not proof that suggesting one item causes the other to be bought. Only the test can show that.
 
-More findings (evening margins, attach rates, menu engineering, opening hours, Uptown pricing, and a stock-out screen that found no sign of
-products running out): [APPENDIX.md](APPENDIX.md).
+More findings (evening margins, attach rates, menu engineering, opening hours, Uptown pricing, peak load, and a stock-out screen with limited
+detection power): [APPENDIX.md](APPENDIX.md).
 
 ## 9. Data quality
 
@@ -432,7 +442,8 @@ Sources: `results/01_data_quality.txt`, `results/07_robustness.txt`, `results/13
   - "the one-sided rule errs 2% of the time": that came from a normal model with an assumed bias; we now report keep probabilities with bias sensitivity, not a guarantee;
   - "the audit is positive in every scenario": false; it costs $400 if the premium is certainly not real;
   - "Uptown benchmark adds $9.0k": the correct figure is $7.2k beyond the Garden-only fix;
-  - "Uptown prices ≈ Harbour × 0.915 (approximate)": they are exactly Garden's prices × 0.96, so the four branch rules are all exact and form a chain;
+  - "Uptown prices ≈ Harbour × 0.915 (approximate)": they equal Garden's prices × 0.96 exactly, so all four rules are exact. We first wrote that Uptown's prices
+    are "derived from" Garden's, but the reverse relationships match too, so the source list is unknown;
   - "packaging/labour and inflation rejected": the export can't test them, so they are marked untestable;
   - "Customer IDs are invalid": softened to "no detectable persistence; validate before use";
   - "staff Tuesday ×1.5": softened to a staffing trial;

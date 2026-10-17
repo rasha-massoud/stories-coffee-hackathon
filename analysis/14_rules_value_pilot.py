@@ -28,9 +28,12 @@ rules = {
 }
 for k, v in rules.items():
     log(f"{k}: {v} of 45 products")
-log("Reading: four exact rules. Uptown's prices are NOT a fixed share of Harbour's (only approximately x0.915); they are "
-    "exactly Garden's rounded prices x 0.96. So the price lists form a chain Harbour -> /1.05 -> Garden -> x0.96 -> Uptown, "
-    "and Garden's ~4.8% discount carries over to Uptown. Garden's recorded prices are ~4.8% below "
+log(f"Reverse directions also match: Garden price = round(Uptown price / 0.96, 2): "
+    f"{(np.round(u['price']['Uptown'] / 0.96, 2) == u['price']['Garden']).sum()} of 45; Harbour price = round(Garden price x "
+    f"1.05, 2): {(np.round(u['price']['Garden'] * 1.05, 2) == H_p).sum()} of 45.")
+log("Reading: four exact rules. Uptown's prices are NOT a fixed share of Harbour's (only approximately x0.915); they equal "
+    "Garden's rounded prices x 0.96. The rules are consistent with coordinated price lists, but the data cannot show "
+    "which list was the source (the reverse relationships match too). Garden's recorded prices are ~4.8% below "
     "Harbour's while its recorded unit costs follow the 43% uplift rule. Whether either was intended is not visible in "
     "transactions; whoever owns the cost sheet and the price list can say why.")
 target_price = u["cost"]["Garden"] / (1 - (1 - H_c / H_p))

@@ -104,6 +104,13 @@ log.table("Bias sensitivity of the one-sided rule: P(keep) for a harmless (0%) a
 for months in [1, 2]:
     for case, be in CASES.items():
         log(f"{months}-month pilot, {case}: keep only if measured loss < {be - 1.645 * s[months]:.1%}")
+sens_err = pd.DataFrame({f"keep threshold, {case.split(' (')[0]}": {f"{e:.1%}": be - 1.645 * e for e in [s[1], 0.03, 0.04]}
+                         for case, be in CASES.items()})
+sens_err.index.name = "assumed monthly measurement error"
+log.table("Sensitivity of the 1-month keep threshold to the assumed measurement error (planning table)",
+          sens_err.apply(lambda col: col.map(lambda v: f"{v:.1%}")))
+log("The 2.1% error is a planning convention from four windows, not a validated bound. Recalibrate it on recent "
+    "pre-pilot POS data before running the pilot; a larger error makes the keep threshold much stricter.")
 
 # Basket guardrail: how much do Garden's units and GP per transaction normally move month to month?
 gt = d[d["Branch"] == "Garden"].groupby("Transaction ID").agg(m=("month", "first"), units=("Quantity", "sum"),

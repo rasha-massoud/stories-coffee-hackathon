@@ -3,8 +3,8 @@
 **Team:** Abdallah Makke, Racha Massoud, Christia Daoud · EECE490, AUB
 
 **The finding.** Garden earns **46.9%** gross margin; Harbour earns **65.0%** on the same menu. For all 45 items, **Garden's recorded unit cost =
-Harbour's × 1.43 and Garden's price = Harbour's ÷ 1.05** (~4.8% lower), exactly after rounding to cents. Uptown's prices are in turn exactly
-Garden's × 0.96, so Garden's discount carries over to Uptown. The observed differences in mix,
+Harbour's × 1.43 and Garden's price = Harbour's ÷ 1.05** (~4.8% lower), exactly after rounding to cents. Uptown's prices in turn equal
+Garden's × 0.96, consistent with coordinated price lists (which list is the source can't be seen in the data). The observed differences in mix,
 discounts, basket and timing don't explain the gap. The 1.43 is a rule someone set: a supplier contract, delivery surcharge, overhead allocation, or cost-sheet error.
 
 **The money (annual gross profit, estimates).**

@@ -33,10 +33,20 @@ u["pearson"] = (u.Quantity - u.expected) / u.expected.pow(0.5)
 log(f"Overall dispersion (variance / Poisson variance): {(u.pearson ** 2).mean():.3f} (1.0 = pure chance)")
 u["p_low"] = poisson.cdf(u.Quantity, u.expected)
 n_low = int((u.p_low < 0.001).sum())
-log(f"Extreme low days (P(sales <= observed) < 0.1%): {n_low} observed; chance alone would give up to ~{len(u) * 0.001:.0f}")
+eligible = u[poisson.pmf(0, u.expected) < 0.001]  # only these days could ever be flagged, even with zero sales
+exp_flags_all = 0.0  # expected number of flags by chance: P(X <= largest k with CDF < 0.001), summed over days
+for m in u.expected:
+    k = int(poisson.ppf(0.001, m))
+    while k >= 0 and poisson.cdf(k, m) >= 0.001:
+        k -= 1
+    if k >= 0:
+        exp_flags_all += poisson.cdf(k, m)
+log(f"Extreme low days (P(sales <= observed) < 0.1%): {n_low} observed. Only {len(eligible):,} of {len(u):,} product-branch-days "
+    f"have enough expected demand for even zero sales to be flagged, and the expected number of flags by chance is "
+    f"~{exp_flags_all:.2f}. So observing 0 says little: this screen has LOW power to detect shortages.")
+log("Note: units include 2-unit lines, so a unit-Poisson model under-predicts zero days; a model of basket incidence would "
+    "expect more zeros, so the small excess of zero days may be a modelling artefact rather than a shortage signal.")
 u.loc[u.p_low < 0.01].sort_values("p_low").head(50).to_csv(OUT / "stockout_low_days.csv", index=False)
-log("Reading: zero-sales days run only slightly above chance (consistent with ordinary extra variation, dispersion ~1.09), "
-    "and there are no extreme low-sales days at all. The transaction data shows no stock-out signal, so product "
-    "availability does not appear to be a profit lever. Limit: a product that runs out late in the day would only show "
-    "as a partial shortfall, which this daily screen can't separate from noise; an hourly screen or inventory records "
-    "would be needed.")
+log("Reading: this daily screen does not provide sufficient evidence to recommend inventory investment, but it also has "
+    "limited ability to detect shortages, especially for slow-selling products. Availability remains unresolved without "
+    "stock records or hourly availability data.")

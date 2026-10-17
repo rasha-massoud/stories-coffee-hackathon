@@ -9,5 +9,6 @@ expected units that day >=
 4                            2528                        20                               19.57
 6                             615                         2                                0.62
 Overall dispersion (variance / Poisson variance): 1.087 (1.0 = pure chance)
-Extreme low days (P(sales <= observed) < 0.1%): 0 observed; chance alone would give up to ~24
-Reading: zero-sales days run only slightly above chance (consistent with ordinary extra variation, dispersion ~1.09), and there are no extreme low-sales days at all. The transaction data shows no stock-out signal, so product availability does not appear to be a profit lever. Limit: a product that runs out late in the day would only show as a partial shortfall, which this daily screen can't separate from noise; an hourly screen or inventory records would be needed.
+Extreme low days (P(sales <= observed) < 0.1%): 0 observed. Only 336 of 24,435 product-branch-days have enough expected demand for even zero sales to be flagged, and the expected number of flags by chance is ~0.17. So observing 0 says little: this screen has LOW power to detect shortages.
+Note: units include 2-unit lines, so a unit-Poisson model under-predicts zero days; a model of basket incidence would expect more zeros, so the small excess of zero days may be a modelling artefact rather than a shortage signal.
+Reading: this daily screen does not provide sufficient evidence to recommend inventory investment, but it also has limited ability to detect shortages, especially for slow-selling products. Availability remains unresolved without stock records or hourly availability data.

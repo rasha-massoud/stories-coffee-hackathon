@@ -40,7 +40,7 @@ lost by closing an hour would be higher than its recorded GP. Treat this as a ca
 ![GP per hour](figures/17_gp_per_hour.png)
 
 ## A5. Uptown pricing scenarios (`08_uptown_pricing.py`)
-Uptown prices are exactly Garden's prices × 0.96 (≈ Harbour × 0.914), while its costs are Harbour × 0.96.
+Uptown prices equal Garden's prices × 0.96 (≈ Harbour × 0.914), while its costs are Harbour × 0.96.
 
 | Assumed elasticity | 0 | −0.5 | −1.0 | −1.5 | −2.0 |
 |---|---|---|---|---|---|
@@ -61,13 +61,14 @@ pilot needs **two** months as a daily-noise planning estimate: it detects 10.2% 
 month-level error, which hasn't been validated for these eight items). A
 whole-menu pilot, measured as in README section 5, is cleaner.
 
-## A8. Stock-out screen: no sign of products running out (`17_stockout_screen.py`)
+## A8. Stock-out screen: inconclusive, because the screen has low power (`17_stockout_screen.py`)
 For every product, branch and day we compared actual units with what the product normally sells given that day's branch traffic (so weekday, growth
 and branch effects are built in), under a Poisson model. Zero-sales days: **5,205 observed vs 4,884 expected by chance** (overall variation 1.09× pure
-chance, i.e. ordinary noise). For products expected to sell 4+ units that day: 20 zero days vs 19.6 expected. **Extreme low-sales days: 0 observed**
-(chance alone would allow up to ~24). **Conclusion:** the transaction data shows no stock-out signal, so product availability doesn't appear to be a profit
-lever and isn't worth an inventory investment on this evidence. Limit: a product running out late in the day would show only as a partial shortfall,
-which a daily screen can't separate from noise; hourly data or inventory records would be needed.
+chance). For products expected to sell 4+ units that day: 20 zero days vs 19.6 expected. Units include 2-unit lines, so this model under-predicts zero
+days; the small excess may be a modelling artefact rather than a shortage signal. **Extreme low-sales days: 0 observed**, but only 336 of 24,435
+product-branch-days have enough expected demand for even zero sales to be flagged, and chance would produce only ~0.17 flags. So observing none says little.
+**Conclusion:** this daily screen gives no evidence for an inventory investment, but it also has limited ability to detect shortages, especially for
+slow-selling products. Availability remains unresolved without stock records or hourly availability data.
 
 ## A9. Peak load in 15-minute slots: staffing to hourly averages understates the rush (`19_peak_load.py`)
 In June, the busiest 15 minutes held **12 orders at Harbour, 8 at Garden and 7 at Uptown**, about **1.9–2.2×** what the busiest hour would give if it
